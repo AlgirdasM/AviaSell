@@ -3,6 +3,8 @@
 
 $color-blue: #176D9E;
 $color-grey: #4A4A4A;
+$color-green: #179E48;
+$color-red: #9E2217;
 
 .browserupgrade {
   margin: 0.2em 0;
@@ -24,6 +26,7 @@ embed,
 object,
 video {
     margin: 0;
+    padding: 0;
     max-width: 100%;
 }
 
@@ -133,7 +136,7 @@ header {
 }
 
 
-.catalog_list {
+.category_list {
   display: grid;
   
   .catalog_list_item {
@@ -167,6 +170,91 @@ header {
   }
 }
 
+.category_name {
+  padding: 10px 20px 10px;
+  color: $color-grey;
+  font-size: 18px;
+}
+
+.items_list {
+  display: grid;
+
+  .item {
+    display: grid;
+    grid-template-columns: minmax(100px, 30%) auto 100px;
+    margin: 0 20px;
+    padding: 10px 0 5px;
+    border-top: 1px solid $color-grey;
+
+    .item_info {
+      display: grid;
+      grid-auto-rows: max-content;
+      padding: 0 20px;
+      margin: 0;
+      color: $color-grey;
+
+      a {
+        padding: 0;
+        margin: 0;
+        color: $color-grey;
+      }
+
+      h2 {
+        padding: 0;
+        margin: 0;
+      }
+
+      .location {
+        font-size: 16px;
+        padding: 10px 0;
+      }
+
+      .price {
+        font-size: 18px;
+        font-weight: 900;
+      }
+    }
+
+    .buttons {
+      display: grid;
+      grid-auto-rows: max-content;
+      grid-gap: 10px;
+      .button {
+        display: grid;
+        align-items: center;
+        color: #fff;
+        height: 48px;
+        border: none;
+        font-size: 20px;
+        font-weight: 300;
+        text-align: center;
+      }
+      .buy {
+        background: $color-blue;
+      }
+      .edit {
+        background-color: $color-green;
+      }
+      .delete {
+        background-color: $color-red;
+      }
+    }
+
+  }
+
+  .item:last-child {
+    border-bottom: 1px solid $color-grey;
+  }
+
+}
+
+
+.pagination {
+  text-align: center;
+  padding: 20px 0 0;
+  font-size: 18px;
+  font-weight: 400;
+}
 
 footer {
   border-top: 1px solid $color-grey;
@@ -182,19 +270,19 @@ footer {
 
 
 @media screen and (min-width: 500px) {
-  .catalog_list{
+  .category_list {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 800px) {
-  .catalog_list{
+  .category_list {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  .catalog_list {
+  main {
     width: 1200px;
     margin: auto;
   }
