@@ -410,6 +410,9 @@ nav {
     font-size: 18px;
     font-weight: 900;
   }
+  .buttons {
+    padding: 20px 0 0;
+  }
 }
 
 .itemDescription {
@@ -452,7 +455,11 @@ footer {
         }
       }
     }
+    .buttons {
+      padding: 20px 0 0;
+    }
   }
+
 }
 
 @media screen and (min-width: 500px) {
