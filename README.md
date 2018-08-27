@@ -20,3 +20,5 @@ To generate production version:
 * [Yeoman](http://yeoman.io/)
 * [Google Fonts](https://fonts.google.com/)
 * [Web app generator generator](https://github.com/yeoman/generator-webapp)
+* [Unsplash](https://unsplash.com/)
+* [Main Banner Photo by Jake Buonemani on Unsplash](https://unsplash.com/photos/J7jaiTITluE)

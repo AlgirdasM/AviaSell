@@ -34,8 +34,9 @@ body {
     font-family: Roboto, sans-serif;
     font-size: 16px;
     line-height: 24px;
+    display: grid;
+    grid-template-rows: 60px auto 60px;
 }
-
 
 ul, li {
   list-style: none;
@@ -45,38 +46,7 @@ ul, li {
 
 a {
   text-decoration: none;
-}
-
-header {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-
-  .logo {
-    padding: 0 20px;
-    font-weight: 700;
-    font-size: 24px;
-    color: $color-grey;
-  }
-
-  a {
-    height: 100%;
-  }
-
-  .button {
-    display: grid;
-    align-items: center;
-    color: #fff;
-    background: $color-blue;
-    height: 100%;
-    border: none;
-    font-size: 20px;
-    font-weight: 300;
-    padding: 0 30px;
-  }
+  color: $color-grey;
 }
 
 .shadow {
@@ -84,14 +54,49 @@ header {
 }
 
 
+// Header style
+header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .logo {
+    padding: 0 20px;
+    font-weight: 700;
+    font-size: 24px;
+    color: $color-grey;
+  }
+
+  .loginButton {
+    display: grid;
+    align-items: center;
+    background: $color-blue;
+    height: 100%;
+    border: none;
+    padding: 0 30px;
+    font-size: 20px;
+    font-weight: 300;
+
+    // make link white
+    a {
+      color: #fff;
+    }
+  }
+
+}
+
+// Main banner style
 .banner {
   height: calc(100vh - 60px);
-  background-image: url("../images/jake-buonemani-369281-unsplash-1500px.jpg");
+  background-image: url("../images/mainbanner1500x1000px.jpg");
   background-color: $color-grey;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  
+  width: 100%;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -132,18 +137,17 @@ header {
     }
   }
 
-
 }
 
-
-.category_list {
+// Category list style
+.categoryList {
   display: grid;
   
-  .catalog_list_item {
+  .categoryItem {
     display: grid;
     margin: 20px;
   
-    h2 {
+    .categoryTitle {
       font-size: 24px;
       font-weight: 900;
       color: $color-grey;
@@ -151,7 +155,7 @@ header {
       padding: 15px 0 10px;
       margin: 0;
     }
-    h3 {
+    .categorySub {
       font-size: 16px;
       font-weight: 300;
       color: $color-grey;
@@ -159,7 +163,7 @@ header {
       padding: 0 0 5px;
       margin: 0;
     }
-    h4 {
+    .latestItem {
       font-size: 16px;
       font-weight: 700;
       color: $color-grey;
@@ -170,34 +174,57 @@ header {
   }
 }
 
-.category_name {
-  padding: 10px 20px 10px;
-  color: $color-grey;
-  font-size: 18px;
+
+main {
+  max-width: 100%;
 }
 
-.items_list {
-  display: grid;
+.container {
+  width: 100%;
+}
 
+// Category items list style
+nav {
+  margin: 20px 20px 0;
+  padding: 0 0 10px;
+  color: $color-grey;
+  font-size: 18px;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  li:first-child {
+    padding: 0 10px 0 0;
+  }
+
+  li {
+    padding: 0 10px;
+    border-right: 1px solid $color-grey;
+  }
+
+  li:last-child {
+    border-right: 0 solid $color-grey;
+  }
+}
+
+.itemsList {
+  display: grid;
+  margin: 0 20px;
   .item {
     display: grid;
     grid-template-columns: minmax(100px, 30%) auto 100px;
-    margin: 0 20px;
-    padding: 10px 0 5px;
+    padding: 10px 0;
     border-top: 1px solid $color-grey;
 
-    .item_info {
+    .itemInfo {
       display: grid;
       grid-auto-rows: max-content;
       padding: 0 20px;
       margin: 0;
       color: $color-grey;
-
-      a {
-        padding: 0;
-        margin: 0;
-        color: $color-grey;
-      }
 
       h2 {
         padding: 0;
@@ -257,33 +284,46 @@ header {
 }
 
 footer {
+  align-self: end;
   border-top: 1px solid $color-grey;
   font-weight: 300;
   max-width: 100%;
   padding: 10px 20px 10px;
-  margin: 20px 0 0;
   color: $color-grey;
   text-align: center;
   box-shadow: 0 -5px 20px 0 rgba(0,0,0,0.2);
 }
 
 
+@media screen and (max-width: 500px) {
+  .itemsList {
+    .item {
+      grid-template-columns: auto;
+      .itemInfo {
+        padding: 0;
+        .price {
+          padding: 0 0 10px;
+        }
+      }
+    }
+  }
+}
 
 @media screen and (min-width: 500px) {
-  .category_list {
+  .categoryList {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 800px) {
-  .category_list {
+  .categoryList {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 1200px) {
-  main {
+  .container {
     width: 1200px;
-    margin: auto;
+    margin: 0 auto;
   }
 }
