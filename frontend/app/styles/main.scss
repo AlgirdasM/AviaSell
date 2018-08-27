@@ -36,6 +36,7 @@ body {
     line-height: 24px;
     display: grid;
     grid-template-rows: 60px auto 60px;
+    color: $color-grey;
 }
 
 ul, li {
@@ -141,11 +142,12 @@ header {
 
 // Category list style
 .categoryList {
+  margin: 30px 0;
   display: grid;
+  grid-gap: 30px;
   
   .categoryItem {
     display: grid;
-    margin: 20px;
   
     .categoryTitle {
       font-size: 24px;
@@ -180,12 +182,13 @@ main {
 }
 
 .container {
-  width: 100%;
+  max-width: 100%;
+  margin: 20px;
 }
 
 // Category items list style
 nav {
-  margin: 20px 20px 0;
+  margin: 20px 0 0;
   padding: 0 0 10px;
   color: $color-grey;
   font-size: 18px;
@@ -212,7 +215,7 @@ nav {
 
 .itemsList {
   display: grid;
-  margin: 0 20px;
+
   .item {
     display: grid;
     grid-template-columns: minmax(100px, 30%) auto 100px;
@@ -241,32 +244,6 @@ nav {
         font-weight: 900;
       }
     }
-
-    .buttons {
-      display: grid;
-      grid-auto-rows: max-content;
-      grid-gap: 10px;
-      .button {
-        display: grid;
-        align-items: center;
-        color: #fff;
-        height: 48px;
-        border: none;
-        font-size: 20px;
-        font-weight: 300;
-        text-align: center;
-      }
-      .buy {
-        background: $color-blue;
-      }
-      .edit {
-        background-color: $color-green;
-      }
-      .delete {
-        background-color: $color-red;
-      }
-    }
-
   }
 
   .item:last-child {
@@ -275,12 +252,85 @@ nav {
 
 }
 
-
 .pagination {
   text-align: center;
   padding: 20px 0 0;
   font-size: 18px;
   font-weight: 400;
+}
+
+
+// Buttons
+.buttons {
+  display: grid;
+  grid-auto-rows: max-content;
+  grid-gap: 10px;
+  .button {
+    display: grid;
+    align-items: center;
+    color: #fff;
+    height: 48px;
+    border: none;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+  }
+  .buy {
+    background: $color-blue;
+  }
+  .edit {
+    background-color: $color-green;
+  }
+  .delete {
+    background-color: $color-red;
+  }
+}
+
+
+// Item page style
+.itemMainInfo {
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: 1fr;
+
+  .itemTitle {
+    font-size: 24px;
+    font-weight: 900;
+    color: $color-grey;
+    padding: 0;
+    margin: 0;
+  }
+
+  .location {
+      font-size: 16px;
+      font-weight: 300;
+      padding: 5px 0;
+      margin: 0;
+  }
+
+  .price {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 18px;
+  font-weight: 900;
+  }
+}
+
+.itemDescription {
+  margin: 20px 0 0;
+  border-top: 1px solid $color-grey;
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 900;
+    padding: 20px 0;
+    margin: 0;
+  }
+
+  .descriptionText {
+    font-size: 16px;
+  }
 }
 
 footer {
@@ -312,6 +362,13 @@ footer {
 @media screen and (min-width: 500px) {
   .categoryList {
     grid-template-columns: 1fr 1fr;
+  }
+  .itemMainInfo {
+    grid-template-columns: minmax(auto, 500px) 1fr;
+    .buttons {
+      padding: 20px 0 0;
+      width: 150px;
+    }
   }
 }
 
