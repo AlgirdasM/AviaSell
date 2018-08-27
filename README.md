@@ -22,3 +22,4 @@ To generate production version:
 * [Web app generator generator](https://github.com/yeoman/generator-webapp)
 * [Unsplash](https://unsplash.com/)
 * [Main Banner Photo by Jake Buonemani on Unsplash](https://unsplash.com/photos/J7jaiTITluE)
+* [Facebook & Google login buttons](https://codepen.io/davidelrizzo/pen/vEYvyv)
