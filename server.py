@@ -21,7 +21,7 @@ session = DBSession()
 #------------------------Index-------------------------
 @app.route('/')
 def main():
-    return "This is main page"
+    return render_template('index.html')
 #----------------------Index End-----------------------
 
 
