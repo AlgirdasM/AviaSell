@@ -386,27 +386,28 @@ nav {
 // Item page style
 .itemMainInfo {
   display: grid;
-  grid-gap: 30px;
   grid-template-columns: 1fr;
+  padding: 10px 0 0;
+  border-top: 1px solid $color-grey;
 
   .itemTitle {
     font-size: 24px;
-    font-weight: 900;
+    font-weight: 700;
     color: $color-grey;
-    padding: 0;
+    padding: 7px 0 0;
     margin: 0;
   }
 
   .location {
     font-size: 16px;
-    font-weight: 300;
-    padding: 5px 0;
+    font-weight: 400;
+    padding: 10px 0;
     margin: 0;
   }
 
   .price {
     margin: 0;
-    padding: 5px 0;
+    padding: 0 0 10px;
     font-size: 18px;
     font-weight: 900;
   }
@@ -416,7 +417,7 @@ nav {
 }
 
 .itemDescription {
-  margin: 20px 0 0;
+  margin: 10px 0 0;
   border-top: 1px solid $color-grey;
   text-align: center;
 
@@ -470,6 +471,14 @@ footer {
   .itemMainInfo {
     grid-template-columns: minmax(auto, 500px) 1fr;
 
+    .itemData {
+      padding: 0 0 0 20px;
+    }
+
+    .itemTitle {
+      padding: 0;
+    }
+    
     .buttons {
       padding: 20px 0 0;
       width: 150px;
