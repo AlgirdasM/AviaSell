@@ -17,9 +17,11 @@ To generate production version:
 * `gulp build`
 
 ## Licenses and huge thank you
-* [Yeoman](http://yeoman.io/)
+* [Yeoman](https://yeoman.io/)
 * [Google Fonts](https://fonts.google.com/)
 * [Web app generator generator](https://github.com/yeoman/generator-webapp)
 * [Unsplash](https://unsplash.com/)
 * [Main Banner Photo by Jake Buonemani on Unsplash](https://unsplash.com/photos/J7jaiTITluE)
 * [Facebook & Google login buttons](https://codepen.io/davidelrizzo/pen/vEYvyv)
+* [Python](https://www.python.org/)
+* [Flask](http://flask.pocoo.org/)
