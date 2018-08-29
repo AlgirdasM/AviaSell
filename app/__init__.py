@@ -5,3 +5,4 @@ webapp = Flask(__name__)
 
 
 import app.views
+import app.models

@@ -7,4 +7,4 @@ from app import webapp
 # Read category page
 @webapp.route('/category/<string:category_name>/')
 def category(category_name):
-    return "This is " + category_name + " category"
+    return "Category page"
