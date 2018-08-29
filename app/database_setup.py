@@ -53,6 +53,7 @@ class CategoryItem(Base):
     title = Column(String(80), nullable=False)
     description = Column(Text(), nullable=False)
     location = Column(String(250), nullable=False)
+    picture = Column(String(250), nullable=False)
     price = Column(String(32), nullable=False)
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
