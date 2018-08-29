@@ -7,4 +7,4 @@ from app import webapp
 # Read login page
 @webapp.route('/login')
 def login():
-    return "This is login page"
+    return render_template('login.html')

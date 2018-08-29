@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  Login
+{% endblock %}
+
+
+{% block content %}
+    <div class="loginContainer">
+      <div class="loginButtons">
+        <!-- GOOGLE PLUS SIGN IN BUTTON-->
+        <button class="loginBtn loginBtn--google" id="glogin">
+          Login with Google
+        </button>
+        <!--END GOOGLE PLUS SIGN IN BUTTON -->
+        <!--FACEBOOK SIGN IN -->
+        <button class="loginBtn loginBtn--facebook" id="fblogin">
+          Login with Facebook
+        </button>
+        <div id="result">
+          Successful login... Redirecting...
+        </div>
+      </div>
+    </div>
+{% endblock %}
