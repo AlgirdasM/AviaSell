@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  {{category_name}}
+{% endblock %}
+
+
+{% block content %}
+  <div class="container">
+    <nav>
+      <ul>
+        <li>
+          <a href="{{ url_for('mainIndex') }}">
+            Home
+          </a>
+        </li>
+        <li>Airplane</li>
+      </ul>
+    </nav>
+    <ul class="itemsList">
+
+      <li class="item">
+        <a href="item.html"><img src="{{ url_for('static', filename='images/500px.svg') }}" alt="Description"></a>
+        <div class="itemInfo">
+          <h2><a href="item.html">Paraglider, paramotor, Free -X Arcane 24</a></h2>
+          <div class="location">Location: Kaunas, Lithuania</div>
+          <div class="price">Eur 2999.99</div>
+        </div>
+        <div class="buttons">
+          <div class="button buy">Contact</div>
+        </div>
+      </li>
+      <li class="item">
+        <a href="item.html"><img src="{{ url_for('static', filename='images/500px.svg') }}" alt="Description"></a>
+        <div class="itemInfo">
+          <h2><a href="item.html">Paraglider, paramotor, Free -X Arcane 24</a></h2>
+          <div class="location">Location: Kaunas, Lithuania</div>
+          <div class="price">Eur 2999.99</div>
+        </div>
+        <div class="buttons">
+          <div class="button edit">Edit</div>
+          <div class="button delete">Delete</div>
+        </div>
+        
+      </li>
+    </ul>
+    <div class="pagination">
+      &lt; 1 2 3 4 5 &gt;
+    </div>
+  </div>
+{% endblock %}

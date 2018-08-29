@@ -7,5 +7,5 @@ from app.models import *
 
 # Read main page
 @webapp.route('/')
-def main():
+def mainIndex():
     return render_template('index.html', categories=CategoryModel.getAll())

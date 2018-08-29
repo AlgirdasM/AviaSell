@@ -34,7 +34,7 @@ class Category(Base):
     name = Column(String(250), nullable=False)
     picture = Column(String(250))
     description = Column(String(250))
-    slug = Column(String(30))
+    slug = Column(String(30), unique=True)
 
     @property
     def serialize(self):

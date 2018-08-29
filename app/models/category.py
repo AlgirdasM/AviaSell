@@ -17,3 +17,7 @@ session = DBSession()
 class CategoryModel():
     def getAll():
         return session.query(Category).all()
+
+    def isThereCategory(categoryName):
+        q = session.query(Category).filter_by(slug=categoryName).first()
+        return q
