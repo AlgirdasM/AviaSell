@@ -2,7 +2,7 @@
 
 from flask import render_template
 from app import webapp
-
+from app.models import *
 
 # Create new item
 @webapp.route('/category/<string:category_name>/create', methods=['GET', 'POST'])
@@ -42,10 +42,16 @@ def createItem(category_name):
 
 
 # Read item
-@webapp.route('/category/<string:category_name>/<int:item_id>/<string:item_name>')
-def readItem(category_name, item_name, item_id):
-    return "Item " + item_name + " with id: " + str(item_id) + " in category " + category_name
-
+@webapp.route('/category/<string:category_slug>/<string:item_name>/<int:item_id>')
+def readItem(category_slug, item_name, item_id):
+    item = ItemModel.getItem(item_id)
+    user = UserModel.getUser(item.user_id)
+    # Check if category exist, if not then 404
+    q = CategoryModel.isThereCategory(category_slug)
+    if q and item:
+        return render_template('item.html', item = item, user = user, category_slug = category_slug)
+    else:
+        return render_template('404.html')
 
 # Update item
 @webapp.route('/category/<string:category_name>/<int:item_id>/update', methods=['GET', 'POST'])

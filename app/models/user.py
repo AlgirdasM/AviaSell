@@ -2,7 +2,7 @@
 #-------------------------#
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.database_setup import Base, Category
+from app.database_setup import Base, User, Category, CategoryItem
 #from app import webapp
 
 # ?check_same_thread=False because there is an error, if you don't add it
@@ -14,10 +14,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-class CategoryModel():
-    def getAll():
-        return session.query(Category).all()
-
-    def isThereCategory(categorySlug):
-        q = session.query(Category).filter_by(slug=categorySlug).first()
+class UserModel():
+    def getUser(uid):
+        q = session.query(User).filter_by(id=uid).one()
         return q

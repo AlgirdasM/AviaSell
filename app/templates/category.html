@@ -23,11 +23,11 @@
       
       {% for item, email in items %}
       <li class="item">
-        <a href="{{ url_for('readItem', category_name = category_name, item_id = item.id, item_name = item.title) }}">
+        <a href="{{ url_for('readItem', category_slug = category_slug, item_id = item.id, item_name = item.title) }}">
           <img src="{{ item.picture }}?random={{ item.id }}" alt="{{ item.title }}"></a>
         <div class="itemInfo">
           <h2>
-            <a href="{{ url_for('readItem', category_name = category_name, item_id = item.id, item_name = item.title) }}">
+            <a href="{{ url_for('readItem', category_slug = category_slug, item_id = item.id, item_name = item.title) }}">
               {{ item.title }}
             </a>
           </h2>

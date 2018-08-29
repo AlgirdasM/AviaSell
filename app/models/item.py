@@ -21,5 +21,8 @@ class ItemModel():
             .filter(CategoryItem.category_id == cid)\
             .filter(User.id == CategoryItem.user_id)\
             .all()
+        return q
 
+    def getItem(item_id):
+        q = session.query(CategoryItem).filter_by(id=item_id).one()
         return q

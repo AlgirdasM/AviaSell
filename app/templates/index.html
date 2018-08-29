@@ -24,13 +24,13 @@
 
       {% for category in categories %}
       <li class="categoryItem shadow">
-        <a href="{{ url_for('getCategory', category_name = category.slug) }}">
+        <a href="{{ url_for('getCategory', category_slug = category.slug) }}">
           <img
             src="{{ url_for('static', filename='images/' + category.picture) }}"
             alt="{{ category.description }}">
         </a>
         <h2 class="categoryTitle">
-          <a href="{{ url_for('getCategory', category_name = category.slug) }}">
+          <a href="{{ url_for('getCategory', category_slug = category.slug) }}">
             {{ category.name }}
           </a>
         </h2>
