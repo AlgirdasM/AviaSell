@@ -25,3 +25,4 @@ To generate production version:
 * [Facebook & Google login buttons](https://codepen.io/davidelrizzo/pen/vEYvyv)
 * [Python](https://www.python.org/)
 * [Flask](http://flask.pocoo.org/)
+* [LoremFlickr for random images](https://loremflickr.com/)

@@ -25,5 +25,5 @@ user2 = User(name="Sebastian Thrun",
              email="sebastianthrun@udacity.local",
              picture="https://avatars3.githubusercontent.com/u/16962421?s=400&v=4"
              )
-session.add(user1)
+session.add(user2)
 session.commit()

@@ -7,6 +7,7 @@
 
 
 {% block content %}
+
   <div class="container">
     <nav>
       <ul>
@@ -15,35 +16,38 @@
             Home
           </a>
         </li>
-        <li>Airplane</li>
+        <li>{{category_name}}</li>
       </ul>
     </nav>
     <ul class="itemsList">
+      
+      {% for item, email in items %}
+      <li class="item">
+        <a href="{{ url_for('readItem', category_name = category_name, item_id = item.id, item_name = item.title) }}">
+          <img src="{{ item.picture }}?random={{ item.id }}" alt="{{ item.title }}"></a>
+        <div class="itemInfo">
+          <h2>
+            <a href="{{ url_for('readItem', category_name = category_name, item_id = item.id, item_name = item.title) }}">
+              {{ item.title }}
+            </a>
+          </h2>
+          <div class="location">
+            Location: {{ item.location }}
+          </div>
+          <div class="price">
+            {{ item.price }}
+          </div>
+        </div>
+        <div class="buttons">
+          <div class="button buy">
+            <a href="mailto:{{ email }}">
+              Contact
+            </a>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
 
-      <li class="item">
-        <a href="item.html"><img src="{{ url_for('static', filename='images/500px.svg') }}" alt="Description"></a>
-        <div class="itemInfo">
-          <h2><a href="item.html">Paraglider, paramotor, Free -X Arcane 24</a></h2>
-          <div class="location">Location: Kaunas, Lithuania</div>
-          <div class="price">Eur 2999.99</div>
-        </div>
-        <div class="buttons">
-          <div class="button buy">Contact</div>
-        </div>
-      </li>
-      <li class="item">
-        <a href="item.html"><img src="{{ url_for('static', filename='images/500px.svg') }}" alt="Description"></a>
-        <div class="itemInfo">
-          <h2><a href="item.html">Paraglider, paramotor, Free -X Arcane 24</a></h2>
-          <div class="location">Location: Kaunas, Lithuania</div>
-          <div class="price">Eur 2999.99</div>
-        </div>
-        <div class="buttons">
-          <div class="button edit">Edit</div>
-          <div class="button delete">Delete</div>
-        </div>
-        
-      </li>
     </ul>
     <div class="pagination">
       &lt; 1 2 3 4 5 &gt;

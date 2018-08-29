@@ -42,8 +42,8 @@ def createItem(category_name):
 
 
 # Read item
-@webapp.route('/category/<string:category_name>/<int:item_id>/<string:item_name>/')
-def item(category_name, item_name, item_id):
+@webapp.route('/category/<string:category_name>/<int:item_id>/<string:item_name>')
+def readItem(category_name, item_name, item_id):
     return "Item " + item_name + " with id: " + str(item_id) + " in category " + category_name
 
 

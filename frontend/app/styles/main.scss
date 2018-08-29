@@ -263,6 +263,10 @@ nav {
   grid-auto-rows: max-content;
   grid-gap: 10px;
 
+  a {
+    color: #fff;
+  }
+
   .button {
     display: grid;
     align-items: center;
