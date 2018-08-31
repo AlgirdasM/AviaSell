@@ -8,7 +8,7 @@ let size = function() {
 };
 
 const vpHack = function(size, element) {
-	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && element) {
 		// banner height calculation - get vh and extract header
 		element.style.height = `${size - 60}px`;
 		element.style.transition = '0.5s';
@@ -20,7 +20,6 @@ window.addEventListener('orientationchange', function() {
 	window.setTimeout(function() {
 		vpHack(size(), element);
 	}, 200);
-
 });
 
 vpHack(size(), element);
