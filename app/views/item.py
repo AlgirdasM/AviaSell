@@ -9,7 +9,7 @@ from app.models import *
 import uuid
 
 UPLOAD_FOLDER = '/vagrant/catalog/uploads'
-ALLOWED_EXTENSIONS = set(['png', 'jpg'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 webapp.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 webapp.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
@@ -28,33 +28,28 @@ def allowed_file(filename):
 
 
 # Create new item
-@webapp.route('/category/<string:category_name>/create', methods=['GET', 'POST'])
-def createItem(category_name):
+@webapp.route('/category/<string:category_slug>/create', methods=['GET', 'POST'])
+def createItem(category_slug):
+    category = CategoryModel.isThereCategory(category_slug)
+    user_id = '1';
+    item = {}
+
     if request.method == 'POST':
-        if request.form.get('title'):
-            title = request.form['title']
+        # Check if all data is available
+        if request.form.get('title') and\
+           request.form.get('description') and\
+           request.form.get('location') and\
+           request.form.get('price'):
+            item['title'] = request.form['title']
+            item['description'] = request.form['description']
+            item['location'] = request.form['location']
+            item['price'] = request.form['price']
         else:
-            return "Error, missing title argument"
+            return "Error"
 
-        if request.form.get('description'):
-            description = request.form['description']
-        else:
-            return "Error, missing description argument"
-
-        if request.form.get('location'):
-            location = request.form['location']
-        else:
-            return "Error, missing location argument"
-
-        if request.form.get('price'):
-            price = request.form['price']
-        else:
-            return "Error, missing price argument"
-
-        # check if the post request has the file part
+        # Check if the post request has the picture part
         if 'itemPicture' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+            return "We need itemPicture!"
         file = request.files['itemPicture']
         # if user does not select file, browser also
         # submit an empty part without filename
@@ -65,20 +60,14 @@ def createItem(category_name):
             filename = secure_filename(file.filename)
             # generate random new filename
             randomFileName = idGenerator() + "." + getExtension(filename)
+            item['picture'] = randomFileName
             file.save(os.path.join(
                 webapp.config['UPLOAD_FOLDER'], randomFileName))
             # redirect(url_for('uploaded_file',
             #                       filename=filename))
 
-        message = ""
-        message += "Creating new item in category " + category_name + "\n"
-        message += "title: " + title + "\n"
-        message += "description: " + description + "\n"
-        message += "location: " + location + "\n"
-        message += "price: " + price + "\n"
-        message += "image:" + randomFileName
 
-        return message
+        return ItemModel.createItem(item, category.id, user_id)
 
     else:
         return render_template('create.html')

@@ -15,7 +15,7 @@
         </ul>
       </nav>
       <div class="itemMainInfo">
-        <img src="{{item.picture}}" alt="Description"></a>
+        <img src="{{ url_for('uploaded_file', filename = item.picture) }}" alt="Description"></a>
         <div class="itemData">
           <h1 class="itemTitle">{{item.title}}</h1>
           <h3 class="location">

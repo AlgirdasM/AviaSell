@@ -26,3 +26,16 @@ class ItemModel():
     def getItem(item_id):
         q = session.query(CategoryItem).filter_by(id=item_id).one()
         return q
+
+    def createItem(item, category_id, user_id):
+        addItem = CategoryItem(title = item['title'],
+            description = item['description'],
+            location = item['location'],
+            picture = item['picture'],
+            price = item['price'],
+            category_id = category_id,
+            user_id = user_id)
+        session.add(addItem)
+        session.commit()
+
+        return 'created'

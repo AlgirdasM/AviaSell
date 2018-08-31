@@ -13,49 +13,49 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-category1 = Category(name="Airplane",
-                     picture="rodrigo-rodriguez-102662-unsplash.jpg",
-                     description="Airplane by Rodrigo Rodriguez on Unsplash",
-                     slug="airplane")
+category1 = Category(name='Airplane',
+                     picture='rodrigo-rodriguez-102662-unsplash.jpg',
+                     description='Airplane by Rodrigo Rodriguez on Unsplash',
+                     slug='airplane')
 session.add(category1)
 session.commit()
 
 
-category2 = Category(name="Helicopter",
-                     picture="neil-thomas-738058-unsplash.jpg",
-                     description="Helicopter by Neil Thomas on Unsplash",
-                     slug="helicopter")
+category2 = Category(name='Helicopter',
+                     picture='neil-thomas-738058-unsplash.jpg',
+                     description='Helicopter by Neil Thomas on Unsplash',
+                     slug='helicopter')
 session.add(category2)
 session.commit()
 
 
-category3 = Category(name="Glider",
-                     picture="konrad-wojciechowski-110181-unsplash.jpg",
-                     description="Glider by Konrad Wojciechowski on Unsplash",
-                     slug="glider")
+category3 = Category(name='Glider',
+                     picture='konrad-wojciechowski-110181-unsplash.jpg',
+                     description='Glider by Konrad Wojciechowski on Unsplash',
+                     slug='glider')
 session.add(category3)
 session.commit()
 
 
-category4 = Category(name="Lighter than air",
-                     picture="konrad-wojciechowski-110181-unsplash.jpg",
-                     description="Air Balloon by Ellehem on Unsplash",
-                     slug="lighter-than-air")
+category4 = Category(name='Lighter than air',
+                     picture='konrad-wojciechowski-110181-unsplash.jpg',
+                     description='Air Balloon by Ellehem on Unsplash',
+                     slug='lighter-than-air')
 session.add(category4)
 session.commit()
 
 
-category5 = Category(name="Paraglider",
-                     picture="pablo-heimplatz-275434-unsplash.jpg",
-                     description="Paraglider by Pablo Heimplatz on Unsplash",
-                     slug="paraglider")
+category5 = Category(name='Paraglider',
+                     picture='pablo-heimplatz-275434-unsplash.jpg',
+                     description='Paraglider by Pablo Heimplatz on Unsplash',
+                     slug='paraglider')
 session.add(category5)
 session.commit()
 
 
-category6 = Category(name="Other",
-                     picture="oxana-v-524239-unsplash.jpg",
-                     description="Picture by Oxana V on Unsplash",
-                     slug="other")
+category6 = Category(name='Other',
+                     picture='oxana-v-524239-unsplash.jpg',
+                     description='Picture by Oxana V on Unsplash',
+                     slug='other')
 session.add(category6)
 session.commit()
