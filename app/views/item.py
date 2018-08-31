@@ -30,7 +30,7 @@ def allowed_file(filename):
 # Create new item
 @webapp.route('/category/<string:category_slug>/create', methods=['GET', 'POST'])
 def createItem(category_slug):
-    category = CategoryModel.isThereCategory(category_slug)
+    category = CategoryModel.getCategory(category_slug)
     user_id = '1';
     item = {}
 
@@ -45,11 +45,11 @@ def createItem(category_slug):
             item['location'] = request.form['location']
             item['price'] = request.form['price']
         else:
-            return "Error"
+            return 'Error'
 
         # Check if the post request has the picture part
         if 'itemPicture' not in request.files:
-            return "We need itemPicture!"
+            return 'We need itemPicture!'
         file = request.files['itemPicture']
         # if user does not select file, browser also
         # submit an empty part without filename
@@ -59,7 +59,7 @@ def createItem(category_slug):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             # generate random new filename
-            randomFileName = idGenerator() + "." + getExtension(filename)
+            randomFileName = idGenerator() + '.' + getExtension(filename)
             item['picture'] = randomFileName
             file.save(os.path.join(
                 webapp.config['UPLOAD_FOLDER'], randomFileName))
@@ -86,8 +86,8 @@ def readItem(category_slug, item_name, item_id):
     item = ItemModel.getItem(item_id)
     user = UserModel.getUser(item.user_id)
     # Check if category exist, if not then 404
-    q = CategoryModel.isThereCategory(category_slug)
-    if q and item:
+    category = CategoryModel.getCategory(category_slug)
+    if category and item:
         return render_template('item.html', item=item, user=user, category_slug=category_slug)
     else:
         return render_template('404.html')
@@ -97,36 +97,36 @@ def readItem(category_slug, item_name, item_id):
 @webapp.route('/category/<string:category_name>/<int:item_id>/update', methods=['GET', 'POST'])
 def updateItem(category_name, item_id):
     if request.method == 'POST':
-        message = ""
+        message = ''
 
         if request.form.get('title'):
             title = request.form['title']
-            message += "title: " + title + "\n"
+            message += 'title: ' + title + '\n'
 
         if request.form.get('description'):
             description = request.form['description']
-            message += "description: " + description + "\n"
+            message += 'description: ' + description + '\n'
 
         if request.form.get('location'):
             location = request.form['location']
-            message += "location: " + location + "\n"
+            message += 'location: ' + location + '\n'
 
         if request.form.get('price'):
             price = request.form['price']
-            message += "price: " + price + "\n"
+            message += 'price: ' + price + '\n'
 
-        message += "Updating item with id " + \
-            str(item_id) + " in category " + category_name
+        message += 'Updating item with id ' + \
+            str(item_id) + ' in category ' + category_name
 
         return message
     else:
-        return "Edit: item with id: " + str(item_id) + " in category " + category_name
+        return 'Edit: item with id: ' + str(item_id) + ' in category ' + category_name
 
 
 # Delete item
 @webapp.route('/category/<string:category_name>/<int:item_id>/delete', methods=['GET', 'POST'])
 def deleteItem(category_name, item_id):
     if request.method == 'POST':
-        return "Deleting item id: " + str(item_id)
+        return 'Deleting item id: ' + str(item_id)
     else:
-        return "Edit: item with id: " + str(item_id) + " in category " + category_name
+        return 'Edit: item with id: ' + str(item_id) + ' in category ' + category_name

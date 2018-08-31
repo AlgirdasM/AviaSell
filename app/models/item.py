@@ -17,15 +17,17 @@ session = DBSession()
 class ItemModel():
     # get all objects from category, also get user information for
     def getAll(cid):
-        q = session.query(CategoryItem, User.email)\
+        result = session.query(CategoryItem, User.email)\
             .filter(CategoryItem.category_id == cid)\
             .filter(User.id == CategoryItem.user_id)\
             .all()
-        return q
+        return result
+
 
     def getItem(item_id):
-        q = session.query(CategoryItem).filter_by(id=item_id).one()
-        return q
+        result = session.query(CategoryItem).filter_by(id=item_id).one()
+        return result
+
 
     def createItem(item, category_id, user_id):
         addItem = CategoryItem(title = item['title'],

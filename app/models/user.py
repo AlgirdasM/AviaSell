@@ -16,5 +16,5 @@ session = DBSession()
 
 class UserModel():
     def getUser(uid):
-        q = session.query(User).filter_by(id=uid).one()
-        return q
+        result = session.query(User).filter_by(id=uid).one()
+        return result
