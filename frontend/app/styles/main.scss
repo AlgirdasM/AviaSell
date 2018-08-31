@@ -4,6 +4,7 @@ $color-blue: #176D9E;
 $color-grey: #4A4A4A;
 $color-green: #179E48;
 $color-red: #9E2217;
+$color-light-grey: #ddd;
 
 .browserupgrade {
   margin: 0.2em 0;
@@ -437,6 +438,33 @@ nav {
   }
 }
 
+
+.itemForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 10px 0 0;
+  border-top: 1px solid $color-grey;
+
+  input {
+    width: calc(100% - 12px);
+    border: 1px solid $color-light-grey;
+    padding: 5px;
+    font-size: 16px;
+    box-sizing: inherit;
+    margin: 0 0 10px;
+  }
+  textarea {
+    padding: 5px;
+    width: calc(100% - 12px);
+    border: 1px solid $color-light-grey;
+  }
+  .buttons {
+    padding: 0;
+  }
+
+}
+
+
 footer {
   align-self: end;
   border-top: 1px solid $color-grey;
@@ -488,6 +516,12 @@ footer {
       width: 150px;
     }
   }
+
+  .itemForm {
+    width: 460px;
+    margin: auto;
+  }
+
 }
 
 @media screen and (min-width: 800px) {

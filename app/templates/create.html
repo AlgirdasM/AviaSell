@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  Welcome
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li>Airplane</li>
+      <li>Create new</li>
+    </ul>
+  </nav>
+
+
+  <form class="itemForm" method="post">
+
+    <label for="title">Title</label>
+    <input name="title" type="text" value="" />
+
+    <label for="description">Description</label>
+    <textarea name="description" cols="60" rows="10"></textarea> 
+
+    <label for="location">Item location</label>
+    <input name="location" type="text" value="" />
+
+    <label for="price">Price</label>
+    <input name="price" type="text" value="" />
+
+    <label for="itemPicture">Item picture:</label>
+    <input type="file"
+           id="itemPicture" name="itemPicture"
+           accept="image/png, image/jpeg" />
+  
+    <button class="buttons">
+      <div class="button buy">Create</div>
+    </button>
+  </form>
+
+</div>
+{% endblock %}

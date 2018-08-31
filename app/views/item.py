@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import render_template
+from flask import render_template, request
 from app import webapp
 from app.models import *
 
@@ -38,7 +38,7 @@ def createItem(category_name):
         return message
 
     else:
-        return "Create new item in category " + category_name
+        return render_template('create.html')
 
 
 # Read item
