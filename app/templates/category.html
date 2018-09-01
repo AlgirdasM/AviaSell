@@ -24,7 +24,11 @@
       {% for item, email in items %}
       <li class="item">
         <a href="{{ url_for('readItem', category_slug = category_slug, item_id = item.id, item_name = item.title) }}">
-          <img src="{{ url_for('uploaded_file', filename = item.picture) }}" alt="{{ item.title }}"></a>
+          {% if item.picture %}
+            <img src="{{ url_for('uploaded_file', filename = item.picture) }}" alt="{{ item.title }}"></a>
+          {% else %}
+            <img src="{{ url_for('static', filename='images/not-available.svg') }}" alt="Picture is not available"></a>
+          {% endif %}
         <div class="itemInfo">
           <h2>
             <a href="{{ url_for('readItem', category_slug = category_slug, item_id = item.id, item_name = item.title) }}">

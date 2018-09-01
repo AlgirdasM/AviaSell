@@ -44,25 +44,27 @@ def createItem(category_slug):
             item['description'] = request.form['description']
             item['location'] = request.form['location']
             item['price'] = request.form['price']
+            item['picture'] = ''
         else:
             return 'Error'
 
         # Check if the post request has the picture part
-        if 'itemPicture' not in request.files:
-            return 'We need itemPicture!'
-        file = request.files['itemPicture']
+        #if 'itemPicture' not in request.files:
+        #    return 'We need itemPicture!'
+
+        if request.form.get('itemPicture'):
+            file = request.files['itemPicture']
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                # generate random new filename
+                randomFileName = idGenerator() + '.' + getExtension(filename)
+                item['picture'] = randomFileName
+                file.save(os.path.join(
+                    webapp.config['UPLOAD_FOLDER'], randomFileName))
         # if user does not select file, browser also
         # submit an empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            # generate random new filename
-            randomFileName = idGenerator() + '.' + getExtension(filename)
-            item['picture'] = randomFileName
-            file.save(os.path.join(
-                webapp.config['UPLOAD_FOLDER'], randomFileName))
+
+
             # redirect(url_for('uploaded_file',
             #                       filename=filename))
 
