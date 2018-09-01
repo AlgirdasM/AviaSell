@@ -20,6 +20,7 @@ class ItemModel():
         result = session.query(CategoryItem, User.email)\
             .filter(CategoryItem.category_id == cid)\
             .filter(User.id == CategoryItem.user_id)\
+            .order_by(CategoryItem.created_date.desc())\
             .all()
         return result
 
