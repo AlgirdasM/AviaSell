@@ -2,6 +2,10 @@
 
 This is a full stack app to sell aviation gear online.
 
+## Database
+Populate fake database - `python3 create_fake_db.py`
+Production mode, populate categories - `python3 create_categories.py`
+
 ## Frontend
 Frontend created using [Yeoman](http://yeoman.io/) [Web app generator generator](https://github.com/yeoman/generator-webapp).
 
