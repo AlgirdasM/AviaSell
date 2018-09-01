@@ -28,6 +28,9 @@ class ItemModel():
         result = session.query(CategoryItem).filter_by(id=item_id).one()
         return result
 
+    def getLatestItem(category_id):
+        result = session.query(CategoryItem).filter_by(category_id=category_id).order_by(CategoryItem.created_date.desc()).first()
+        return result
 
     def createItem(item, category_id, user_id):
         addItem = CategoryItem(title = item['title'],

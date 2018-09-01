@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Text
+import datetime
+from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -55,6 +56,7 @@ class CategoryItem(Base):
     location = Column(String(250), nullable=False)
     picture = Column(String(250), nullable=False)
     price = Column(String(32), nullable=False)
+    created_date = Column(DateTime, default=datetime.datetime.utcnow)
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))

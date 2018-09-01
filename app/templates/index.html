@@ -22,7 +22,7 @@
   <div class="container">
     <ul id="catList" class="categoryList">
 
-      {% for category in categories %}
+      {% for category, item in categories %}
       <li class="categoryItem shadow">
         <a href="{{ url_for('getCategory', category_slug = category.slug) }}">
           <img
@@ -38,8 +38,8 @@
           Latest post
         </h3>
         <h4 class="latestItem">
-          <a href="item.html">
-            Giroscope for free
+          <a href="{{ url_for('readItem', category_slug = category.slug, item_name = item.title, item_id=item.id) }}">
+            {{item.title}}
           </a>
         </h4>
       </li>

@@ -8,4 +8,14 @@ from app.models import *
 # Read main page
 @webapp.route('/')
 def mainIndex():
-    return render_template('index.html', categories=CategoryModel.getAll())
+    categories = CategoryModel.getAll()
+    catWithLatestItem = []
+
+    for category in categories:
+        catWithLatestItem.append((category, ItemModel.getLatestItem(category.id)))
+    
+    #for item, category in catWithLatestItem:
+    #    print(item.title)
+    #    print(category.name)
+
+    return render_template('index.html', categories=catWithLatestItem)
