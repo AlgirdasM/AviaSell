@@ -175,3 +175,25 @@ gulp.task('default', () => {
     runSequence(['clean', 'wiredep'], 'build', resolve);
   });
 });
+
+// My scripts for flask
+gulp.task('flaskdist', ['build', 'imagesFlask', 'jsFlask', 'stylesFlask'], () => {
+});
+
+// Copy images from scr to flask
+gulp.task('imagesFlask', () => {
+  gulp.src('dist/images/**/*')
+    .pipe(gulp.dest('./../app/static/images'));
+});
+
+// Copy scripts from scr to flask
+gulp.task('jsFlask', () => {
+  gulp.src('dist/scripts/**/*')
+    .pipe(gulp.dest('./../app/static/js'));
+});
+
+// Copy styles from scr to flask
+gulp.task('stylesFlask', () => {
+  gulp.src('dist/styles/**/*')
+    .pipe(gulp.dest('./../app/static/css'));
+});

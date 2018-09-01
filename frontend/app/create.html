@@ -25,23 +25,19 @@
       <a href="/">AviaSell</a>
     </div>
     <button class="loginButton">
-      <a href="register.html">
+      <a href="login.html">
             Sell item
         </a>
     </button>
   </header>
   <main>
     <div class="container">
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li>Airplane</li>
-          <li>Create new</li>
-        </ul>
-      </nav>
     
+      <fieldset>
 
-      <form class="itemForm" method="post">
+        <legend>Sell your item</legend>
+
+        <form class="itemForm" method="post">
 
         <label for="title">Title</label>
         <input name="title" type="text" value="" />
@@ -59,11 +55,13 @@
         <input type="file"
                id="itemPicture" name="itemPicture"
                accept="image/png, image/jpeg" />
-      
+
         <button class="buttons">
-          <div class="button buy">Create</div>
+          <div class="button edit">Create</div>
         </button>
-      </form>
+        </form>
+
+      </fieldset>
 
     </div>
   </main>

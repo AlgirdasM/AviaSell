@@ -436,6 +436,17 @@ nav {
 }
 
 
+fieldset {
+  border: 2px solid $color-light-grey;
+}
+
+legend {
+    background-color: $color-blue;
+    color: #fff;
+    padding: 10px;
+    font-size: 16px;
+}
+
 .itemForm {
   display: grid;
   grid-template-columns: 1fr;
@@ -511,6 +522,11 @@ footer {
       padding: 20px 0 0;
       width: 150px;
     }
+  }
+
+  fieldset {
+    width: 500px;
+    margin: 20px auto;
   }
 
   .itemForm {
