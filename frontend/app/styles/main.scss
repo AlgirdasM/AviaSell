@@ -191,6 +191,7 @@ nav {
   padding: 0 0 10px;
   color: $color-grey;
   font-size: 18px;
+  border-bottom: 1px solid $color-grey;
 
   ul {
     display: flex;
@@ -219,7 +220,7 @@ nav {
     display: grid;
     grid-template-columns: minmax(100px, 30%) auto 100px;
     padding: 10px 0;
-    border-top: 1px solid $color-grey;
+    border-bottom: 1px solid $color-grey;
 
     .itemInfo {
       display: grid;
@@ -245,9 +246,6 @@ nav {
     }
   }
 
-  .item:last-child {
-    border-bottom: 1px solid $color-grey;
-  }
 }
 
 .pagination {
@@ -393,7 +391,6 @@ nav {
   display: grid;
   grid-template-columns: 1fr;
   padding: 10px 0 0;
-  border-top: 1px solid $color-grey;
 
   .itemTitle {
     font-size: 24px;
@@ -443,7 +440,6 @@ nav {
   display: grid;
   grid-template-columns: 1fr;
   padding: 10px 0 0;
-  border-top: 1px solid $color-grey;
 
   input {
     width: calc(100% - 12px);
