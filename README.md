@@ -15,10 +15,13 @@ To install dependencies run:
 3. `bower install`
 
 To serve development server:
-* `gulp serve`
+* Run `gulp serve`
 
-To generate production version:
-* `gulp build`
+To generate production version for Flask:
+* Run `gulp flaskdist`
+Please note flaskdist only copies images, css and js files.
+You need to manually update html files.
+
 
 ## Licenses and huge thank you
 * [Yeoman](https://yeoman.io/)
