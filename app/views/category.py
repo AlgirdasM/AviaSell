@@ -30,7 +30,8 @@ def getCategoryPage(category_slug, page):
         # How many items to display in one page?
         limitPerPage = 2
         # Get pages count
-        pageCount = math.ceil(ItemModel.itemsInCatCount(category.id) / limitPerPage)
+        countItems = ItemModel.itemsInCatCount(category.id)
+        pageCount = math.ceil(countItems / limitPerPage)
         # Filter by category ID and get items from database
         result = []
         items = ItemModel.getItemPage(category.id, page, limitPerPage)
@@ -42,6 +43,7 @@ def getCategoryPage(category_slug, page):
                                items=result,
                                category_name=category.name,
                                pages=pageCount,
-                               current_page=page)
+                               current_page=page,
+                               total_items=countItems)
     else:
         return render_template('404.html'), 404

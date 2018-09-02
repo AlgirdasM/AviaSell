@@ -16,6 +16,12 @@
             </li>
             <li>
                 {{category_name}}
+                ({{total_items}}
+                    {% if total_items == 1%}
+                    item)
+                    {% else %}
+                    items)
+                    {% endif %}
             </li>
         </ul>
     </nav>
