@@ -287,13 +287,13 @@ item20 = CategoryItem(title='Other 1',
              location='London, United Kingdom',
              picture='dan-lohmar-617043-unsplash.jpg',
              price='$41200',
-             category_id='5',
+             category_id='6',
              user_id='1',
              )
 session.add(item20)
 session.commit()
 
-item21 = CategoryItem(title='Other 1',
+item21 = CategoryItem(title='Other 2',
              description='Sit amet, consectetur adipiscing elit. Etiam dignissim scelerisque arcu. Donec hendrerit nisi posuere, aliquam nunc quis, consequat dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a posuere metus, at rhoncus dolor. Praesent ullamcorper sit amet risus et tincidunt. Donec et venenatis enim. Cras dictum, sem ut faucibus commodo, nibh ex imperdiet est, sed semper nunc.',
              location='London, United Kingdom',
              picture='inspirationfeed-97073-unsplash.jpg',
@@ -304,7 +304,7 @@ item21 = CategoryItem(title='Other 1',
 session.add(item21)
 session.commit()
 
-item22 = CategoryItem(title='Other 2',
+item22 = CategoryItem(title='Other 3',
              description='Sit amet, consectetur adipiscing elit. Etiam dignissim scelerisque arcu. Donec hendrerit nisi posuere, aliquam nunc quis, consequat dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a posuere metus, at rhoncus dolor. Praesent ullamcorper sit amet risus et tincidunt. Donec et venenatis enim. Cras dictum, sem ut faucibus commodo, nibh ex imperdiet est, sed semper nunc.',
              location='London, United Kingdom',
              picture='jp-valery-747651-unsplash.jpg',
@@ -315,7 +315,7 @@ item22 = CategoryItem(title='Other 2',
 session.add(item22)
 session.commit()
 
-item23 = CategoryItem(title='Other 3',
+item23 = CategoryItem(title='Other 4',
              description='Sit amet, consectetur adipiscing elit. Etiam dignissim scelerisque arcu. Donec hendrerit nisi posuere, aliquam nunc quis, consequat dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a posuere metus, at rhoncus dolor. Praesent ullamcorper sit amet risus et tincidunt. Donec et venenatis enim. Cras dictum, sem ut faucibus commodo, nibh ex imperdiet est, sed semper nunc.',
              location='London, United Kingdom',
              picture='matthieu-joannon-687144-unsplash.jpg',
