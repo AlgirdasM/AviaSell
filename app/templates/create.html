@@ -1,54 +1,67 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-  Welcome
+    Welcome
 {% endblock %}
-
 
 {% block content %}
 <div class="container">
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li>Airplane</li>
-      <li>Create new</li>
-    </ul>
-  </nav>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            <li>
+                Airplane
+            </li>
+            <li>
+                Create new
+            </li>
+        </ul>
+    </nav>
 
     <div class="container">
-    
-      <fieldset>
 
-        <legend>Sell your item</legend>
+        <fieldset>
+            <legend>
+                Sell your item
+            </legend>
 
-        <form class="itemForm" method="post">
+            <form class="itemForm" method="post">
+                
+                <label for="title">
+                    Title
+                </label>
+                <input name="title" type="text" value="" required/>
+                <label for="description">
+                    Description
+                </label>
+                <textarea name="description" cols="60" rows="10" required></textarea>
+                <label for="location">
+                    Item location
+                </label>
+                <input name="location" type="text" value="" required/>
+                <label for="price">
+                    Price
+                </label>
+                <input name="price" type="text" value="" required/>
+                <label for="itemPicture">
+                    Item picture
+                </label>
+                <input type="file" id="itemPicture" name="itemPicture" accept="image/png, image/jpeg" />
 
-        <label for="title">Title</label>
-        <input name="title" type="text" value="" required/>
+                <button class="buttons">
+                    <div class="button edit">
+                        Create
+                    </div>
+                </button>
 
-        <label for="description">Description</label>
-        <textarea name="description" cols="60" rows="10" required></textarea> 
-
-        <label for="location">Item location</label>
-        <input name="location" type="text" value="" required/>
-
-        <label for="price">Price</label>
-        <input name="price" type="text" value="" required/>
-
-        <label for="itemPicture">Item picture</label>
-        <input type="file"
-               id="itemPicture" name="itemPicture"
-               accept="image/png, image/jpeg" />
-
-        <button class="buttons">
-          <div class="button edit">Create</div>
-        </button>
-        </form>
-
-      </fieldset>
+            </form>
+        </fieldset>
 
     </div>
-
 </div>
 {% endblock %}

@@ -1,82 +1,90 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-  {{category_name}}
+    {{category_name}}
 {% endblock %}
 
-
 {% block content %}
+<div class="container">
 
-  <div class="container">
     <nav>
-      <ul>
-        <li>
-          <a href="{{ url_for('mainIndex') }}">
-            Home
-          </a>
-        </li>
-        <li>{{category_name}}</li>
-      </ul>
+        <ul>
+            <li>
+                <a href="{{ url_for('mainIndex') }}">
+                    Home
+                </a>
+            </li>
+            <li>
+                {{category_name}}
+            </li>
+        </ul>
     </nav>
+
     <ul class="itemsList">
-      
-      {% for item, email in items %}
-      <li class="item">
-        <a href="{{ url_for('readItem', category_slug = category_slug, item_id = item.id, item_name = item.title) }}">
-          {% if item.picture %}
-            <img src="{{ url_for('uploaded_file', filename = item.picture) }}" alt="{{ item.title }}"></a>
-          {% else %}
-            <img src="{{ url_for('static', filename='images/not-available.svg') }}" alt="Picture is not available"></a>
-          {% endif %}
-        <div class="itemInfo">
-          <h2>
+
+        {% for item, email in items %}
+        <li class="item">
             <a href="{{ url_for('readItem', category_slug = category_slug, item_id = item.id, item_name = item.title) }}">
-              {{ item.title }}
-            </a>
-          </h2>
-          <div class="location">
-            Location: {{ item.location }}
-          </div>
-          <div class="price">
-            {{ item.price }}
-          </div>
-        </div>
-        <div class="buttons">
-          <div class="button buy">
-            <a href="mailto:{{ email }}">
-              Contact
-            </a>
-          </div>
-        </div>
-      </li>
-      {% endfor %}
+
+                {% if item.picture %}
+                    <img src="{{ url_for('uploaded_file', filename = item.picture) }}"
+                         alt="{{ item.title }}">
+                    </a>
+                
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/not-available.svg') }}"
+                         alt="Picture is not available">
+                    </a>
+                {% endif %}
+            <div class="itemInfo">
+                <h2>
+                    <a href="{{ url_for('readItem', category_slug = category_slug, item_id = item.id, item_name = item.title) }}">
+                        {{ item.title }}
+                    </a>
+                </h2>
+                <div class="location">
+                    Location: {{ item.location }}
+                </div>
+                <div class="price">
+                    {{ item.price }}
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="button buy">
+                    <a href="mailto:{{ email }}">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
 
     </ul>
+
     <div class="pagination">
-      
-      {% if current_page > 1 %}
-         <a href="{{ url_for('getCategoryPage', category_slug = category_slug, page = current_page-1) }}">
-          &lt;
-        </a>     
-      {% endif %}
 
-      {% for i in range(1, (pages+1)) %}
-        {% if current_page == i %}
-          {{i}}
-        {% else %}
-        <a href="{{ url_for('getCategoryPage', category_slug = category_slug, page = i) }}">
-          {{i}}
-        </a>
+        {% if current_page > 1 %}
+            <a href="{{ url_for('getCategoryPage', category_slug = category_slug, page = current_page-1) }}">
+              &lt;
+            </a>
         {% endif %}
-      {% endfor %}
 
-      {% if current_page < pages %}
-        <a href="{{ url_for('getCategoryPage', category_slug = category_slug, page = current_page+1) }}">
-          &gt;
-        </a>
-      {% endif %}
+        {% for i in range(1, (pages+1)) %}
+            {% if current_page == i %}
+                {{i}}
+            {% else %}
+                <a href="{{ url_for('getCategoryPage', category_slug = category_slug, page = i) }}">
+                  {{i}}
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if current_page < pages %}
+            <a href="{{ url_for('getCategoryPage', category_slug = category_slug, page = current_page+1) }}">
+                &gt;
+            </a>
+        {% endif %}
 
     </div>
-  </div>
+</div>
 {% endblock %}

@@ -1,50 +1,46 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-	Welcome
+    Welcome
 {% endblock %}
 
-
 {% block content %}
-  <div id="banner">
+<div id="banner">
     <div class="bannerText">
-      <h1 class="slogan" tabindex="0">
-          Buy and sell aviation gear
+        <h1 class="slogan" tabindex="0">
+            Buy and sell aviation gear
         </h1>
-      <a href="#catList">
-        <div class="arrow">
-          &gt;
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="container">
-    <ul id="catList" class="categoryList">
-
-      {% for category, item in categories %}
-      <li class="categoryItem shadow">
-        <a href="{{ url_for('getCategoryPage', category_slug = category.slug, page = '1') }}">
-          <img
-            src="{{ url_for('static', filename='images/' + category.picture) }}"
-            alt="{{ category.description }}">
+        <a href="#catList">
+            <div class="arrow">
+                &gt;
+            </div>
         </a>
-        <h2 class="categoryTitle">
-          <a href="{{ url_for('getCategoryPage', category_slug = category.slug, page = '1') }}">
-            {{ category.name }}
-          </a>
-        </h2>
-        <h3 class="categorySub">
-          Latest post
-        </h3>
-        <h4 class="latestItem">
-          <a href="{{ url_for('readItem', category_slug = category.slug, item_name = item.title, item_id=item.id) }}">
-            {{item.title}}
-          </a>
-        </h4>
-      </li>
-      {% endfor %}
-     
+    </div>
+</div>
+
+<div class="container">
+    <ul id="catList" class="categoryList">
+        {% for category, item in categories %}
+        <li class="categoryItem shadow">
+            <a href="{{ url_for('getCategoryPage', category_slug = category.slug, page = '1') }}">
+                <img src="{{ url_for('static', filename='images/' + category.picture) }}"
+                     alt="{{ category.description }}">
+            </a>
+            <h2 class="categoryTitle">
+                <a href="{{ url_for('getCategoryPage', category_slug = category.slug, page = '1') }}">
+                    {{ category.name }}
+                </a>
+            </h2>
+            <h3 class="categorySub">
+                Latest post
+            </h3>
+            <h4 class="latestItem">
+                <a href="{{ url_for('readItem', category_slug = category.slug, item_name = item.title, item_id=item.id) }}">
+                {{item.title}}
+                </a>
+            </h4>
+        </li>
+        {% endfor %}
     </ul>
-  </div>
+</div>
 {% endblock %}
