@@ -18,3 +18,8 @@ class UserModel():
     def getUser(uid):
         result = session.query(User).filter_by(id=uid).one()
         return result
+
+
+    def getUserEmail(uid):
+        result = session.query(User).filter_by(id=uid).one()
+        return result.email

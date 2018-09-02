@@ -16,9 +16,9 @@ session = DBSession()
 
 class ItemModel():
     # get all objects from category, also get user information for
-    def getAll(cid):
+    def getAll(category_id):
         result = session.query(CategoryItem, User.email)\
-            .filter(CategoryItem.category_id == cid)\
+            .filter(CategoryItem.category_id == category_id)\
             .filter(User.id == CategoryItem.user_id)\
             .order_by(CategoryItem.created_date.desc())\
             .all()
@@ -45,3 +45,22 @@ class ItemModel():
         session.commit()
 
         return 'created'
+
+    def getItemPage(category_id, offset, limit):
+        if offset == 1:
+            offset = 0
+        else:
+            offset = (offset - 1) * limit
+
+        result = session.query(CategoryItem)\
+            .filter_by(category_id = category_id)\
+            .order_by(CategoryItem.created_date.desc())\
+            .offset(offset)\
+            .limit(limit)\
+            .all()
+
+        return result
+
+    def itemsInCatCount(category_id):
+        result = session.query(CategoryItem).filter_by(category_id = category_id).count()
+        return result
