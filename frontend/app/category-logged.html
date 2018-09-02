@@ -29,30 +29,61 @@
       <button class="button blue">
         <a href="create.html">
               <div class="sign">
-                <i class="fas fa-sign-in-alt"></i>
+                <i class="fas fa-plus"></i>
               </div>
               <div class="text">
-                Login
+                Create Item
+              </div>
+          </a>
+      </button>
+      <button class="button red">
+        <a href="login.html">
+              <div class="sign">
+                <i class="fas fa-sign-out-alt"></i>
+              </div>
+              <div class="text">
+                Logout
               </div>
           </a>
       </button>
     </div>
   </header>
   <main>
-    <div class="loginContainer">
-      <div class="loginButtons">
-        <!-- GOOGLE PLUS SIGN IN BUTTON-->
-        <button class="loginBtn loginBtn--google" id="glogin">
-          Login with Google
-        </button>
-        <!--END GOOGLE PLUS SIGN IN BUTTON -->
-        <!--FACEBOOK SIGN IN -->
-        <button class="loginBtn loginBtn--facebook" id="fblogin">
-          Login with Facebook
-        </button>
-        <div id="result">
-          Successful login... Redirecting...
-        </div>
+    <div class="container">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li>Airplane</li>
+        </ul>
+      </nav>
+
+      <ul class="itemsList">
+        <li class="item">
+          <a href="item.html"><img src="images/500px.svg" alt="Description"></a>
+          <div class="itemInfo">
+            <h2><a href="item.html">Paraglider, paramotor, Free -X Arcane 24</a></h2>
+            <div class="location">Location: Kaunas, Lithuania</div>
+            <div class="price">Eur 2999.99</div>
+          </div>
+          <div class="buttons">
+            <div class="button buy">Contact</div>
+          </div>
+        </li>
+        <li class="item">
+          <a href="item.html"><img src="images/500px.svg" alt="Description"></a>
+          <div class="itemInfo">
+            <h2><a href="item.html">Paraglider, paramotor, Free -X Arcane 24</a></h2>
+            <div class="location">Location: Kaunas, Lithuania</div>
+            <div class="price">Eur 2999.99</div>
+          </div>
+          <div class="buttons">
+            <div class="button edit">Edit</div>
+            <div class="button delete">Delete</div>
+          </div>
+        </li>
+      </ul>
+      <div class="pagination">
+        &lt; 1 2 3 4 5 &gt;
       </div>
     </div>
   </main>

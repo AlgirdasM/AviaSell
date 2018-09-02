@@ -71,19 +71,39 @@ header {
     color: $color-grey;
   }
 
-  .loginButton {
-    display: grid;
-    align-items: center;
-    background: $color-blue;
+  .headerButtons{
     height: 100%;
-    border: none;
-    padding: 0 30px;
-    font-size: 20px;
-    font-weight: 300; // make link white
-    a {
-      color: #fff;
+    display: flex;
+    .text {
+      display: none;
     }
+    .sign {
+      display: block;
+    }
+    .button {
+      display: grid;
+      align-items: center;
+      height: 100%;
+      border: none;
+      padding: 0 30px;
+      font-size: 20px;
+      font-weight: 300; // make link white
+      a {
+        color: #fff;
+      }
+    }
+    .blue {
+      background: $color-blue;
+    }
+    .green {
+      background: $color-green;
+    }
+    .red {
+      background: $color-red;
+    }
+
   }
+
 }
 
 // Main banner style
@@ -254,7 +274,6 @@ nav {
   font-size: 18px;
   font-weight: 400;
 }
-
 
 // Buttons
 .buttons {
@@ -503,6 +522,17 @@ footer {
 }
 
 @media screen and (min-width: 500px) {
+  header {
+    .headerButtons{
+      .text {
+        display: block;
+      }
+      .sign {
+        display: none;
+      }
+    }
+  }
+
   .categoryList {
     grid-template-columns: 1fr 1fr;
   }
