@@ -22,3 +22,7 @@ class CategoryModel():
     def getCategory(categorySlug):
         result = session.query(Category).filter_by(slug=categorySlug).first()
         return result
+
+    def getCategorySlug(category_id):
+    	result = session.query(Category).filter_by(id=category_id).one()
+    	return result.slug

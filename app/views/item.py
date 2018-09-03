@@ -65,7 +65,14 @@ def createItem():
             # If no picture is selected submit empty string
             item['picture'] = ''
         #redirect to item page
-        return ItemModel.createItem(item, user_id)
+        
+        created = ItemModel.createItem(item, user_id)
+        categorySlug = CategoryModel.getCategorySlug(created.category_id)
+
+        print(created.__dict__)
+        print(category)
+
+        return redirect(url_for('readItem', category_slug = categorySlug, item_name=created.title, item_id=created.id))
 
     else:
         categories = CategoryModel.getAll()

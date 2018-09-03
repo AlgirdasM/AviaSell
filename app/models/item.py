@@ -43,8 +43,10 @@ class ItemModel():
             user_id = user_id)
         session.add(addItem)
         session.commit()
-
-        return 'created'
+        # get result of commit
+        session.refresh(addItem)
+        #return item
+        return addItem
 
     def getItemPage(category_id, offset, limit):
         if offset == 1:
