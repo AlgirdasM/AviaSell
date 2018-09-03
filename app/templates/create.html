@@ -15,10 +15,7 @@
                 </a>
             </li>
             <li>
-                Airplane
-            </li>
-            <li>
-                Create new
+                Create new item
             </li>
         </ul>
     </nav>
@@ -30,7 +27,7 @@
                 Sell your item
             </legend>
 
-            <form class="itemForm" method="post">
+            <form class="itemForm" enctype="multipart/form-data" method="post">
                 
                 <label for="title">
                     Title
@@ -48,6 +45,19 @@
                     Price
                 </label>
                 <input name="price" type="text" value="" required/>
+                <label for="category">
+                    Category
+                </label>
+
+                <select name="category" required>
+                    <option value="">None</option>
+                    {% for category in categories %}
+                        <option value="{{category.id}}">
+                            {{category.name}}
+                        </option>
+                    {% endfor %}
+                </select>
+
                 <label for="itemPicture">
                     Item picture
                 </label>

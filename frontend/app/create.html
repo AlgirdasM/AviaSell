@@ -68,8 +68,15 @@
 
         <label for="price">Price</label>
         <input name="price" type="text" value="" />
+        <label for="category">Category</label>
+        <select name="category" required>
+          <option value="">None</option>
+          <option value="{{category.id}}">
+          {{category.name}}
+          </option>
+        </select>
 
-        <label for="itemPicture">Item picture:</label>
+        <label for="itemPicture">Item picture</label>
         <input type="file"
                id="itemPicture" name="itemPicture"
                accept="image/png, image/jpeg" />

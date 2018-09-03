@@ -33,13 +33,13 @@ class ItemModel():
         result = session.query(CategoryItem).filter_by(category_id=category_id).order_by(CategoryItem.created_date.desc()).first()
         return result
 
-    def createItem(item, category_id, user_id):
+    def createItem(item, user_id):
         addItem = CategoryItem(title = item['title'],
             description = item['description'],
             location = item['location'],
             picture = item['picture'],
             price = item['price'],
-            category_id = category_id,
+            category_id = item['category_id'],
             user_id = user_id)
         session.add(addItem)
         session.commit()

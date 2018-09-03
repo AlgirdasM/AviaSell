@@ -7,6 +7,7 @@ from flask import send_from_directory
 from app import webapp
 from app.models import *
 import uuid
+from flask import session as login_session
 
 UPLOAD_FOLDER = '/vagrant/catalog/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -28,23 +29,23 @@ def allowed_file(filename):
 
 
 # Create new item
-@webapp.route('/category/<string:category_slug>/create', methods=['GET', 'POST'])
-def createItem(category_slug):
-    category = CategoryModel.getCategory(category_slug)
-    user_id = '1';
-    item = {}
-
+@webapp.route('/item/create', methods=['GET', 'POST'])
+def createItem():
     if request.method == 'POST':
+        item = {}
         # Check if all data is available
         if request.form.get('title') and\
            request.form.get('description') and\
            request.form.get('location') and\
-           request.form.get('price'):
+           request.form.get('price') and\
+           request.form.get('category'):
             item['title'] = request.form['title']
             item['description'] = request.form['description']
             item['location'] = request.form['location']
             item['price'] = request.form['price']
             item['picture'] = ''
+            item['category_id'] = request.form['category']
+
         else:
             return 'Error'
 
@@ -68,11 +69,12 @@ def createItem(category_slug):
             # redirect(url_for('uploaded_file',
             #                       filename=filename))
 
-
-        return ItemModel.createItem(item, category.id, user_id)
+        user_id = str(login_session['user_id'])
+        return ItemModel.createItem(item, user_id)
 
     else:
-        return render_template('create.html')
+        categories = CategoryModel.getAll()
+        return render_template('create.html', categories=categories)
 
 
 # Serve uploaded pictures
