@@ -58,11 +58,24 @@
             
             {% if 'username' in session %}
                 <div class="buttons">
-                    <div class="button buy">
-                        <a href="mailto:{{ email }}">
-                            Contact
-                        </a>
-                    </div>
+                    {% if session['user_id'] == item.user_id %}
+                            <div class="button edit">
+                                <a href="edit">
+                                    Edit
+                                </a>
+                            </div>
+                            <div class="button delete">
+                                <a href="delete">
+                                    Delete
+                                </a>
+                            </div>
+                    {% else %}
+                        <div class="button buy">
+                            <a href="mailto:{{ email }}">
+                                Contact
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             {% else %}
                 <div class="buttons">
