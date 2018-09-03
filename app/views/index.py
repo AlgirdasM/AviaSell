@@ -8,7 +8,6 @@ from flask import session as login_session
 # Read main page
 @webapp.route('/')
 def mainIndex():
-    print(login_session)
     categories = CategoryModel.getAll()
     catWithLatestItem = []
 

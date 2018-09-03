@@ -32,8 +32,10 @@ def allowed_file(filename):
 @webapp.route('/item/create', methods=['GET', 'POST'])
 def createItem():
     if request.method == 'POST':
+        # Create item to store information
         item = {}
-        # Check if all data is available
+        user_id = str(login_session['user_id'])
+        # Check if all required data is available in post
         if request.form.get('title') and\
            request.form.get('description') and\
            request.form.get('location') and\
@@ -43,33 +45,26 @@ def createItem():
             item['description'] = request.form['description']
             item['location'] = request.form['location']
             item['price'] = request.form['price']
-            item['picture'] = ''
             item['category_id'] = request.form['category']
-
         else:
             return 'Error'
 
         # Check if the post request has the picture part
-        #if 'itemPicture' not in request.files:
-        #    return 'We need itemPicture!'
-
-        if request.form.get('itemPicture'):
+        if 'itemPicture' in request.files:
             file = request.files['itemPicture']
+            # if file exist and it's allowed
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 # generate random new filename
-                randomFileName = idGenerator() + '.' + getExtension(filename)
+                # user_id-randomstring.ext
+                randomFileName = user_id + '-' + idGenerator() + '.' + getExtension(filename)
                 item['picture'] = randomFileName
                 file.save(os.path.join(
                     webapp.config['UPLOAD_FOLDER'], randomFileName))
-        # if user does not select file, browser also
-        # submit an empty part without filename
-
-
-            # redirect(url_for('uploaded_file',
-            #                       filename=filename))
-
-        user_id = str(login_session['user_id'])
+        else:
+            # If no picture is selected submit empty string
+            item['picture'] = ''
+        #redirect to item page
         return ItemModel.createItem(item, user_id)
 
     else:
