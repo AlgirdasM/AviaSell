@@ -4,6 +4,7 @@ from flask import render_template
 from app import webapp
 from app.models import *
 import math
+from flask import session as login_session
 
 # Read category page
 @webapp.route('/category/<string:category_slug>')
@@ -44,6 +45,7 @@ def getCategoryPage(category_slug, page):
                                category_name=category.name,
                                pages=pageCount,
                                current_page=page,
-                               total_items=countItems)
+                               total_items=countItems,
+                               session=login_session)
     else:
         return render_template('404.html'), 404

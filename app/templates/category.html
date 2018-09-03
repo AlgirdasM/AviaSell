@@ -55,13 +55,25 @@
                     {{ item.price }}
                 </div>
             </div>
-            <div class="buttons">
-                <div class="button buy">
-                    <a href="mailto:{{ email }}">
-                        Contact
-                    </a>
+            
+            {% if 'username' in session %}
+                <div class="buttons">
+                    <div class="button buy">
+                        <a href="mailto:{{ email }}">
+                            Contact
+                        </a>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="buttons">
+                    <div class="button buy">
+                        <a href="{{ url_for('login') }}" onclick="alert('Please login to contact the owner');">
+                            Contact
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
         </li>
         {% endfor %}
 
