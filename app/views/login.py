@@ -11,7 +11,7 @@ from oauth2client.client import FlowExchangeError
 import httplib2
 import json
 
-from flask import make_response, request, flash
+from flask import make_response, request, flash, redirect, url_for
 import requests
 
 from app.models import *
@@ -125,3 +125,26 @@ def gconnect():
     flash("you are now logged in as %s" % login_session['username'])
 
     return output
+
+
+@webapp.route('/logout')
+def logout():
+    # Only disconnect a connected user.
+    access_token = login_session.get('access_token')
+    if access_token is None:
+        response = make_response(
+            json.dumps('Current user not connected.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[0]
+    if result['status'] == '200':
+        # Clear login session
+        login_session.clear()
+        # Redirect to main page
+        return redirect(url_for('mainIndex'))
+    else:
+        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
+        response.headers['Content-Type'] = 'application/json'
+        return response

@@ -22,6 +22,7 @@
             <a href="{{ url_for('mainIndex') }}">AviaSell</a>
         </div>
         <div class="headerButtons">
+            {% if 'username' not in session %}
             <button class="button blue">
                 <a href="{{ url_for('login') }}">
                     <div class="sign">
@@ -31,6 +32,28 @@
                         Login
                     </div>
                 </a>
+            {% else %}
+                  <button class="button blue">
+                    <a href="create.html">
+                          <div class="sign">
+                            <i class="fas fa-plus"></i>
+                          </div>
+                          <div class="text">
+                            Create Item
+                          </div>
+                      </a>
+                  </button>
+                  <button class="button red">
+                    <a href="{{ url_for('logout') }}">
+                          <div class="sign">
+                            <i class="fas fa-sign-out-alt"></i>
+                          </div>
+                          <div class="text">
+                            Logout
+                          </div>
+                      </a>
+                  </button>
+            {% endif %}
             </button>
         </div>
     </header>

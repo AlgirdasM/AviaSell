@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+{% if 'username' not in session %}
 <div id="banner">
     <div class="bannerText">
         <h1 class="slogan" tabindex="0">
@@ -17,8 +18,14 @@
         </a>
     </div>
 </div>
+{% endif %}
 
 <div class="container">
+    {% if 'username' in session %}
+        <div class="logged">
+            Welcome {{session.username}}!
+        </div>
+    {% endif %}
     <ul id="catList" class="categoryList">
         {% for category, item in categories %}
         <li class="categoryItem shadow">
