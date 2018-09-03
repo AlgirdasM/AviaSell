@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
 
-from .category import *
-from .item import *
-from .user import *
+from .categorymodel import *
+from .itemmodel import *
+from .usermodel import *

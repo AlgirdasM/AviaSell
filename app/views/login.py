@@ -131,6 +131,8 @@ def gconnect():
 def logout():
     # Only disconnect a connected user.
     access_token = login_session.get('access_token')
+    # Clear login session
+    login_session.clear()
     if access_token is None:
         response = make_response(
             json.dumps('Current user not connected.'), 401)
@@ -140,8 +142,6 @@ def logout():
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     if result['status'] == '200':
-        # Clear login session
-        login_session.clear()
         # Redirect to main page
         return redirect(url_for('mainIndex'))
     else:
