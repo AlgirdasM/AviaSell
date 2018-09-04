@@ -3,7 +3,7 @@
 from flask import Flask
 webapp = Flask(__name__)
 
-webapp.secret_key = 'cd48e1c22de0961d3d1afb14f8a66e006cfb1cfbf3f0c0f3'
+webapp.config.from_pyfile('webapp.cfg', silent=False)
 
 import app.views
 import app.models

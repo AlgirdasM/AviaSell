@@ -2,20 +2,16 @@
 
 from flask import render_template
 from app import webapp
-from app.models import *
-from flask import session as login_session
+from app.controllers import *
 
-# Read main page
+
+# Render index page
 @webapp.route('/')
 def mainIndex():
-    categories = CategoryModel.getAll()
-    catWithLatestItem = []
-
-    for category in categories:
-        catWithLatestItem.append((category, ItemModel.getLatestItem(category.id)))
-    
-    #for item, category in catWithLatestItem:
-    #    print(item.title)
-    #    print(category.name)
-
-    return render_template('index.html', categories=catWithLatestItem, session=login_session)
+    # Get categories with latest item
+    categories = CategoryController.categoriesWithLatestItem()
+    # Get session data
+    login_session = AuthController.getSessionData()
+    return render_template('index.html',
+                           categories=categories,
+                           session=login_session)

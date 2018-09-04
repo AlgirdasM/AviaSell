@@ -44,12 +44,12 @@
                 <label for="price">
                     Price
                 </label>
-                <input name="price" type="text" value="" required/>
+                <input name="price" type="text" value="" />
                 <label for="category">
                     Category
                 </label>
 
-                <select name="category" required>
+                <select name="category_id" required>
                     <option value="">None</option>
                     {% for category in categories %}
                         <option value="{{category.id}}">

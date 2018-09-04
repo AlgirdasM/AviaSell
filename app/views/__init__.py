@@ -4,3 +4,4 @@ from .index import *
 from .login import *
 from .category import *
 from .item import *
+from .upload import *

@@ -1,101 +1,44 @@
 #!/usr/bin/env python3
 
-import os
-from flask import render_template, request, flash, redirect, url_for
-from werkzeug.utils import secure_filename
-from flask import send_from_directory
 from app import webapp
-from app.models import *
-import uuid
-from flask import session as login_session
-
-UPLOAD_FOLDER = '/vagrant/catalog/uploads'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
-webapp.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-webapp.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
-
-
-def idGenerator():
-    return str(uuid.uuid4())
-
-
-def getExtension(filename):
-    return filename.split('.')[-1]
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
+from app.controllers import *
+from flask import render_template, request, url_for, redirect
 
 # Create new item
+
+
 @webapp.route('/item/create', methods=['GET', 'POST'])
 def createItem():
     if request.method == 'POST':
-        # Create item to store information
-        item = {}
-        user_id = str(login_session['user_id'])
-        # Check if all required data is available in post
-        if request.form.get('title') and\
-           request.form.get('description') and\
-           request.form.get('location') and\
-           request.form.get('price') and\
-           request.form.get('category'):
-            item['title'] = request.form['title']
-            item['description'] = request.form['description']
-            item['location'] = request.form['location']
-            item['price'] = request.form['price']
-            item['category_id'] = request.form['category']
-        else:
-            return 'Error'
-
-        # Check if the post request has the picture part
-        if 'itemPicture' in request.files:
-            file = request.files['itemPicture']
-            # if file exist and it's allowed
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                # generate random new filename
-                # user_id-randomstring.ext
-                randomFileName = user_id + '-' + idGenerator() + '.' + getExtension(filename)
-                item['picture'] = randomFileName
-                file.save(os.path.join(
-                    webapp.config['UPLOAD_FOLDER'], randomFileName))
-        else:
-            # If no picture is selected submit empty string
-            item['picture'] = ''
-        
         # Create and return created item
-        created = ItemModel.createItem(item, user_id)
-        # Get category slug using category_id
-        categorySlug = CategoryModel.getCategorySlug(created.category_id)
-        
-        #redirect to item page
-        return redirect(url_for('readItem', category_slug = categorySlug, item_name=created.title, item_id=created.id))
+        data = ItemController.createItem(request.form, request.files)
+
+        # If there is error, return error page
+        if data.get('error'):
+            return 'error page'
+
+        # Redirect to item page
+        return redirect(url_for('readItem',
+                                category_slug=data['slug'],
+                                item_name=data['item'].title,
+                                item_id=data['item'].id))
 
     else:
-        categories = CategoryModel.getAll()
-        return render_template('create.html', categories=categories)
-
-
-# Serve uploaded pictures
-@webapp.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(webapp.config['UPLOAD_FOLDER'],
-                               filename)
+        # Get all categories
+        data = CategoryController.getAllCategories()
+        return render_template('create.html', categories=data)
 
 
 # Read item
 @webapp.route('/category/<string:category_slug>/<string:item_name>/<int:item_id>')
 def readItem(category_slug, item_name, item_id):
-    item = ItemModel.getItem(item_id)
-    user = UserModel.getUser(item.user_id)
-    # Check if category exist, if not then 404
-    category = CategoryModel.getCategory(category_slug)
-    if category and item:
-        return render_template('item.html', item=item, user=user, category_slug=category_slug)
-    else:
-        return render_template('404.html')
+    # Get item data from ItemController
+    data = ItemController.getItem(item_id, category_slug)
+
+    return render_template('item.html',
+                           item=data['item'],
+                           user=data['user'],
+                           category_slug=category_slug)
 
 
 # Update item

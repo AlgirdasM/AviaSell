@@ -19,11 +19,9 @@ class UserModel():
         result = session.query(User).filter_by(id=uid).one()
         return result
 
-
     def getUserEmail(uid):
         result = session.query(User).filter_by(id=uid).one()
         return result.email
-
 
     def getUserID(email):
         try:
@@ -32,11 +30,11 @@ class UserModel():
         except:
             return None
 
-
     def createUser(login_session):
         newUser = User(name=login_session['username'], email=login_session[
                        'email'], picture=login_session['picture'])
         session.add(newUser)
         session.commit()
-        user = session.query(User).filter_by(email=login_session['email']).one()
+        user = session.query(User).filter_by(
+            email=login_session['email']).one()
         return user.id

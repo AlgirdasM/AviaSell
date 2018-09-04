@@ -19,10 +19,10 @@ class CategoryModel():
         result = session.query(Category).all()
         return result
 
-    def getCategory(categorySlug):
-        result = session.query(Category).filter_by(slug=categorySlug).first()
+    def getCategoryBySlug(categorySlug):
+        result = session.query(Category).filter_by(slug=categorySlug).one()
         return result
 
     def getCategorySlug(category_id):
-    	result = session.query(Category).filter_by(id=category_id).one()
-    	return result.slug
+        result = session.query(Category).filter_by(id=category_id).one()
+        return result.slug
