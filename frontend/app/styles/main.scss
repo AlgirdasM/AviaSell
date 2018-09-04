@@ -511,6 +511,21 @@ legend {
 
 }
 
+.errorContainer {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 100%;
+  .message {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+
+    h1 {
+      font-size: 18px;
+    }
+  }
+}
 
 .deleteContainer {
   display: grid;
