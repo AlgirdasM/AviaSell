@@ -28,6 +28,10 @@ def gconnect():
 
 @webapp.route('/logout')
 def logout():
+    logged = AuthController.validateLogin()
+    if not logged:
+        return redirect(url_for('login'))
+    
     data = AuthController.logout()
     if data['code'] == 200:
         # On success redirect to home page
