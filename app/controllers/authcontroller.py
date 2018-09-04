@@ -1,15 +1,13 @@
-from flask import session as login_session
+#!/usr/bin/env python3
+
+import random, string, httplib2, json, requests
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from app.models import *
-import random
-import string
-import httplib2
-import json
-import requests
+from flask import session as login_session
 from flask import make_response
 
-with open('gclient_secret.json') as f:
+with open('app/config/gclient_secret.json') as f:
     CLIENT_ID = json.load(f)['web']['client_id']
 
 class AuthController():
@@ -39,7 +37,7 @@ class AuthController():
         try:
             # Upgrade the authorization code into a credentials object
             oauth_flow = flow_from_clientsecrets(
-                'gclient_secret.json', scope='')
+                webapp.config['GOOGLE_JSON'], scope='')
             oauth_flow.redirect_uri = 'postmessage'
             credentials = oauth_flow.step2_exchange(code)
         except FlowExchangeError:

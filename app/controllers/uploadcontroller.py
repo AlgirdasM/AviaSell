@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
+
 from app import webapp
-import os
-import uuid
+import os, uuid
 from werkzeug.utils import secure_filename
 
 

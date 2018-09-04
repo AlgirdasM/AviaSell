@@ -1,9 +1,9 @@
+#!/usr/bin/env python3
+
 # import database managers
-#-------------------------#
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.database_setup import Base, Category
-#from app import webapp
 
 # ?check_same_thread=False because there is an error, if you don't add it
 engine = create_engine('sqlite:///aviasell.db?check_same_thread=False')

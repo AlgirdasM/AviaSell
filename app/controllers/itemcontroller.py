@@ -2,6 +2,7 @@
 
 from app.models import *
 import math
+from app import webapp
 from flask import session as login_session
 from app.controllers.uploadcontroller import UploadController
 
@@ -9,7 +10,7 @@ class ItemController():
     # Get items for given category and page
     def getPageItems(category_slug, page):
         # How many items to display in one page?
-        limitPerPage = 2
+        limitPerPage = int(webapp.config['ITEMS_PER_PAGE'])
 
         # Create object to store data
         result = {}
