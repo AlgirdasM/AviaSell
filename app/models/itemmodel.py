@@ -76,6 +76,15 @@ class ItemModel():
                         .count()
         return result
 
+    def updateItem(item):
+        try:
+            session.add(item)
+            session.commit()
+            session.refresh(item)
+            return item
+        except:
+            return False
+
     def deleteItem(item_id):
         try:
             item = session.query(CategoryItem).filter_by(id = item_id).one()

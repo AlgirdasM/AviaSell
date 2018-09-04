@@ -39,7 +39,7 @@
 
                     {% if session['user_id'] == item.user_id %}
                             <div class="button edit">
-                                <a href="edit">
+                                <a href="{{ url_for('updateItem', item_id=item.id) }}">
                                     Edit
                                 </a>
                             </div>

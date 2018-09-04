@@ -56,33 +56,27 @@ def createItem():
 
 
 # Update item
-@webapp.route('/category/<string:category_name>/<int:item_id>/update', methods=['GET', 'POST'])
-def updateItem(category_name, item_id):
+@webapp.route('/item/update/<int:item_id>', methods=['GET', 'POST'])
+def updateItem(item_id):
+    logged = AuthController.validateLogin()
+    if not logged:
+        return redirect(url_for('readItem'))
+    
     if request.method == 'POST':
-        message = ''
-
-        if request.form.get('title'):
-            title = request.form['title']
-            message += 'title: ' + title + '\n'
-
-        if request.form.get('description'):
-            description = request.form['description']
-            message += 'description: ' + description + '\n'
-
-        if request.form.get('location'):
-            location = request.form['location']
-            message += 'location: ' + location + '\n'
-
-        if request.form.get('price'):
-            price = request.form['price']
-            message += 'price: ' + price + '\n'
-
-        message += 'Updating item with id ' + \
-            str(item_id) + ' in category ' + category_name
-
-        return message
+        data = ItemController.updateItem(item_id, request.form, request.files)
+        if data['code'] == 200:
+            return redirect(url_for('readItem',
+                                    category_slug=data['slug'],
+                                    item_name=data['item'].title,
+                                    item_id=data['item'].id))
+        else:
+            message = data['message']
+            code = data['code']
+            return render_template('error.html', message=message), 304
     else:
-        return 'Edit: item with id: ' + str(item_id) + ' in category ' + category_name
+        data = ItemController.getItemByID(item_id)
+        categories = CategoryController.getAllCategories()
+        return render_template('update.html', item=data, categories=categories)
 
 
 # Delete item
@@ -90,8 +84,8 @@ def updateItem(category_name, item_id):
 def deleteItem(item_id):
     logged = AuthController.validateLogin()
     if not logged:
-        return redirect(url_for('login'))
-        
+        return redirect(url_for('readItem'))
+
     if request.method == 'POST':
         data = ItemController.deleteItem(item_id)
 
@@ -104,7 +98,7 @@ def deleteItem(item_id):
             return render_template('error.html', message=message), code
     else:
         data = ItemController.getItemByID(item_id)
-        
+
         if not data:
             message = 'Item not found'
             code = 404

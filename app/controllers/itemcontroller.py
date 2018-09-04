@@ -102,6 +102,54 @@ class ItemController():
 
         return result
 
+    def updateItem(item_id, data, file):
+        item = ItemModel.getItem(item_id)
+        old_item = item
+        user_id = str(login_session['user_id'])
+
+        response = {}
+
+        # If item not found return 404
+        if not item:
+            response['message'] = 'Item not found'
+            response['code'] = 404
+            return response
+
+        #check if user is authorized to delete this item
+        # if item.user_id != user_id:
+        #     response['message'] = 'You are not authorized to update this item.'
+        #     response['code'] = 403
+        #     return response
+
+        if data.get('title'):
+            item.title = data['title']
+        if data.get('description'):
+            item.description = data['description']
+        if data.get('location'):
+            item.location = data['location']
+        if data.get('price'):
+            item.price = data['price']
+        if data.get('category_id'):
+            item.category_id = data['category_id']
+        if file.get('itemPicture'):
+            picture = UploadController.uploadFile(file, user_id)
+            item.picture = picture
+
+        itemUpdate = ItemModel.updateItem(item)
+
+        slug = CategoryModel.getCategorySlug(itemUpdate.category_id)
+
+        if itemUpdate:
+            # Return response code 200 if everything is ok
+            response['item'] = itemUpdate
+            response['slug'] = slug
+            response['code'] = 200
+            return response
+        else:
+            response['message'] = 'Something went wrong... Item is not deleted.'
+            response['code'] = 500
+            return response
+
     def deleteItem(item_id):
         response = {}
         item = ItemModel.getItem(item_id)
@@ -121,6 +169,7 @@ class ItemController():
 
         #delete item and return response code 200
         delete_item = ItemModel.deleteItem(item_id)
+
         if delete_item:
             response['code'] = 200
             return response

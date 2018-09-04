@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Create item
+    Edit item
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li>
-                Create new item
+                Update item
             </li>
         </ul>
     </nav>
@@ -24,7 +24,7 @@
 
         <fieldset>
             <legend>
-                Sell your item
+                Update item
             </legend>
 
             <form class="itemForm" enctype="multipart/form-data" method="post">
@@ -32,28 +32,35 @@
                 <label for="title">
                     Title
                 </label>
-                <input name="title" type="text" value="" required/>
+                <input name="title" type="text" placeholder="{{item.title}}"/>
                 <label for="description">
                     Description
                 </label>
-                <textarea name="description" cols="60" rows="10" required></textarea>
+                <textarea name="description" cols="60" rows="10" placeholder="{{item.description}}"></textarea>
                 <label for="location">
                     Item location
                 </label>
-                <input name="location" type="text" value="" required/>
+                <input name="location" type="text" placeholder="{{item.location}}" />
                 <label for="price">
                     Price
                 </label>
-                <input name="price" type="text" value="" required/>
+                <input name="price" type="text" placeholder="{{item.price}}" />
                 <label for="category">
                     Category
                 </label>
 
-                <select name="category_id" required>
-                    <option value="">None</option>
+                <select name="category_id" >
                     {% for category in categories %}
-                        <option value="{{category.id}}">
-                            {{category.name}}
+                        <option
+                            
+                            {% if category.id == item.category_id %}
+                                value=""
+                                selected
+                            {% else %}
+                                value="{{category.id}}"
+                            {% endif %}
+                            >
+                                {{category.name}}
                         </option>
                     {% endfor %}
                 </select>
@@ -65,7 +72,7 @@
 
                 <button class="buttons">
                     <div class="button edit">
-                        Create
+                        Update
                     </div>
                 </button>
 
