@@ -29,12 +29,12 @@
     <ul id="catList" class="categoryList">
         {% for category, item in categories %}
         <li class="categoryItem shadow">
-            <a href="{{ url_for('getCategoryPage', category_slug = category.slug, page = '1') }}">
+            <a href="{{ url_for('getCategoryPage', category_slug = category.slug) }}">
                 <img src="{{ url_for('static', filename='images/' + category.picture) }}"
                      alt="{{ category.description }}">
             </a>
             <h2 class="categoryTitle">
-                <a href="{{ url_for('getCategoryPage', category_slug = category.slug, page = '1') }}">
+                <a href="{{ url_for('getCategoryPage', category_slug = category.slug) }}">
                     {{ category.name }}
                 </a>
             </h2>
