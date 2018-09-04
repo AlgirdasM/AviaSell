@@ -30,6 +30,10 @@ def readItem(category_slug, item_name, item_id):
 # Create new item
 @webapp.route('/item/create', methods=['GET', 'POST'])
 def createItem():
+    logged = AuthController.validateLogin()
+    if not logged:
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
         # Create and return created item
         data = ItemController.createItem(request.form, request.files)
@@ -84,6 +88,10 @@ def updateItem(category_name, item_id):
 # Delete item
 @webapp.route('/item/delete/<int:item_id>', methods=['GET', 'POST'])
 def deleteItem(item_id):
+    logged = AuthController.validateLogin()
+    if not logged:
+        return redirect(url_for('login'))
+        
     if request.method == 'POST':
         data = ItemController.deleteItem(item_id)
 

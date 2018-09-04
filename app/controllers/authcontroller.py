@@ -28,6 +28,13 @@ class AuthController():
         # If state is valid return true
         return reqstate == login_session['state']
 
+    def validateLogin():
+        # Validate login
+        if login_session.get('username'):
+            return True
+        else:
+            return False
+
     def loginGoogle(code, reqstate):
         # If state is not valid return error
         if not AuthController.validateState(reqstate):
