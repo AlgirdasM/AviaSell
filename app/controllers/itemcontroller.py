@@ -9,46 +9,58 @@ from app.controllers.uploadcontroller import UploadController
 class ItemController():
     # Get items for given category and page
     def getPageItems(category_slug, page):
-        # How many items to display in one page?
-        limitPerPage = int(webapp.config['ITEMS_PER_PAGE'])
+        try:
+            # How many items to display in one page?
+            limitPerPage = int(webapp.config['ITEMS_PER_PAGE'])
 
-        # Create object to store data
-        result = {}
+            # Create object to store data
+            result = {}
 
-        # Get category information using slug
-        category = CategoryModel.getCategoryBySlug(category_slug)
-        result['category_name'] = category.name
+            # Get category information using slug
+            category = CategoryModel.getCategoryBySlug(category_slug)
+            result['category_name'] = category.name
 
-        # Get total items
-        totalItems = ItemModel.itemsInCategoryCount(category.id)
-        result['totalItems'] = totalItems
+            # Get total items
+            totalItems = ItemModel.itemsInCategoryCount(category.id)
+            result['totalItems'] = totalItems
 
-        # Count how many there are pages
-        pageCount = math.ceil(totalItems / limitPerPage)
-        result['pageCount'] = pageCount
+            # Count how many there are pages
+            pageCount = math.ceil(totalItems / limitPerPage)
+            result['pageCount'] = pageCount
 
-        # Filter by category ID and get items from database
-        result['items'] = []
-        items = ItemModel.getItemPage(category.id, page, limitPerPage)
-        for item in items:
-            result['items'].append(
-                (item, UserModel.getUserEmail(item.user_id)))
+            # Filter by category ID and get items from database
+            result['items'] = []
+            items = ItemModel.getItemPage(category.id, page, limitPerPage)
+            for item in items:
+                result['items'].append(
+                    (item, UserModel.getUserEmail(item.user_id)))
 
-        return result
+            return result
+        # if we got exception, return false
+        except:
+            return False
 
-    def getItem(item_id, category_slug):
-        # Create object to store data
-        result = {}
+    def getItem(item_id, item_name):
+        try:
+            # Create object to store data
+            result = {}
 
-        # Get item data
-        item = ItemModel.getItem(item_id)
-        result['item'] = item
+            # Get item data
+            item = ItemModel.getItem(item_id)
+            result['item'] = item
 
-        # Get user data
-        user = UserModel.getUser(item.user_id)
-        result['user'] = user
+            # Validate item name, if not match return False
+            if item.title != item_name:
+                return False
 
-        return result
+            # Get user data
+            user = UserModel.getUser(item.user_id)
+            result['user'] = user
+
+            return result
+        except:
+            # If error return false
+            return False
 
     def createItem(data, file):
         result = {}

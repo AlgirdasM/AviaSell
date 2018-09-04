@@ -6,6 +6,7 @@ from oauth2client.client import FlowExchangeError
 from app.models import *
 from flask import session as login_session
 from flask import make_response
+from app import webapp
 
 with open('app/config/gclient_secret.json') as f:
     CLIENT_ID = json.load(f)['web']['client_id']
@@ -120,6 +121,7 @@ class AuthController():
         return output
 
     def logout():
+        response = {}
         # Only disconnect a connected user.
         access_token = login_session.get('access_token')
        
@@ -127,9 +129,9 @@ class AuthController():
         login_session.clear()
 
         if access_token is None:
-            response = make_response(
-                json.dumps('Current user not connected.'), 401)
-            response.headers['Content-Type'] = 'application/json'
+            response['message'] = 'Current user not connected.'
+            response['code'] = 401
+
             return response
         
         url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
@@ -137,9 +139,10 @@ class AuthController():
         result = h.request(url, 'GET')[0]
         
         if result['status'] == '200':
+            response['code'] = int(result['status'])
             # Return success
-            return 'success'
+            return response
         else:
-            response = make_response(json.dumps('Failed to revoke token for given user.', 400))
-            response.headers['Content-Type'] = 'application/json'
+            response['message'] = 'Failed to revoke token for given user.'
+            response['code'] = 400
             return response

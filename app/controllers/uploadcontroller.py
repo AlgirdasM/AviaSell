@@ -20,6 +20,7 @@ class UploadController():
                filename.rsplit('.', 1)[1].lower(
                ) in webapp.config['ALLOWED_EXTENSIONS']
 
+    # Upload file to upload folder
     def uploadFile(data, user_id):
         if 'itemPicture' in data:
             file = data['itemPicture']

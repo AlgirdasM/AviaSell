@@ -17,3 +17,10 @@ class CategoryController():
     def getAllCategories():
         result = CategoryModel.getAll()
         return result
+
+    def validateSlug(slug):
+        try:
+            result = CategoryModel.getCategoryBySlug(slug)
+            return True
+        except:
+            return False

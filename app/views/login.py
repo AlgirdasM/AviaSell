@@ -29,9 +29,11 @@ def gconnect():
 @webapp.route('/logout')
 def logout():
     data = AuthController.logout()
-    if data == 'success':
+    if data['code'] == 200:
         # On success redirect to home page
         return redirect(url_for('mainIndex'))
     else:
         # On error display error page
-        return data
+        message = data['message']
+        code = data['code']
+        return render_template('error.html', message=message), code

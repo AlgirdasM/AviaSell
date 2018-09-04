@@ -4,9 +4,30 @@ from app import webapp
 from app.controllers import *
 from flask import render_template, request, url_for, redirect
 
+
+# Read item
+@webapp.route('/category/<string:category_slug>/<string:item_name>/<int:item_id>')
+def readItem(category_slug, item_name, item_id):
+    # Validate category slug
+    validSlug = CategoryController.validateSlug(category_slug)
+    if not validSlug:
+        message = '404 - Category Not Found'
+        return render_template('error.html', message=message), 404
+
+    # Get item data from ItemController
+    data = ItemController.getItem(item_id, item_name)
+    # If we don't have item return error
+    if not data:
+        message = '404 - Item Not Found'
+        return render_template('error.html', message=message), 404
+
+    return render_template('item.html',
+                           item=data['item'],
+                           user=data['user'],
+                           category_slug=category_slug)
+
+
 # Create new item
-
-
 @webapp.route('/item/create', methods=['GET', 'POST'])
 def createItem():
     if request.method == 'POST':
@@ -15,7 +36,8 @@ def createItem():
 
         # If there is error, return error page
         if data.get('error'):
-            return 'error page'
+            message = data['error']
+            return render_template('error.html', message=message), 400
 
         # Redirect to item page
         return redirect(url_for('readItem',
@@ -27,18 +49,6 @@ def createItem():
         # Get all categories
         data = CategoryController.getAllCategories()
         return render_template('create.html', categories=data)
-
-
-# Read item
-@webapp.route('/category/<string:category_slug>/<string:item_name>/<int:item_id>')
-def readItem(category_slug, item_name, item_id):
-    # Get item data from ItemController
-    data = ItemController.getItem(item_id, category_slug)
-
-    return render_template('item.html',
-                           item=data['item'],
-                           user=data['user'],
-                           category_slug=category_slug)
 
 
 # Update item
