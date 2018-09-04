@@ -90,6 +90,6 @@ class ItemModel():
             item = session.query(CategoryItem).filter_by(id = item_id).one()
             session.delete(item)
             session.commit()
-            return True
+            return item
         except:
             return False

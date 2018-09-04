@@ -169,8 +169,10 @@ class ItemController():
 
         #delete item and return response code 200
         delete_item = ItemModel.deleteItem(item_id)
+        slug = CategoryModel.getCategorySlug(delete_item.category_id)
 
         if delete_item:
+            response['slug'] = slug
             response['code'] = 200
             return response
         else:

@@ -30,6 +30,7 @@ def readItem(category_slug, item_name, item_id):
 # Create new item
 @webapp.route('/item/create', methods=['GET', 'POST'])
 def createItem():
+    # Validate if user loged, if not redirect to login page
     logged = AuthController.validateLogin()
     if not logged:
         return redirect(url_for('login'))
@@ -58,6 +59,7 @@ def createItem():
 # Update item
 @webapp.route('/item/update/<int:item_id>', methods=['GET', 'POST'])
 def updateItem(item_id):
+    # Validate if user loged, if not redirect to login page
     logged = AuthController.validateLogin()
     if not logged:
         return redirect(url_for('readItem'))
@@ -82,6 +84,7 @@ def updateItem(item_id):
 # Delete item
 @webapp.route('/item/delete/<int:item_id>', methods=['GET', 'POST'])
 def deleteItem(item_id):
+    # Validate if user loged, if not redirect to login page
     logged = AuthController.validateLogin()
     if not logged:
         return redirect(url_for('readItem'))
@@ -90,8 +93,11 @@ def deleteItem(item_id):
         data = ItemController.deleteItem(item_id)
 
         if data['code'] == 200:
-            # flash message because we need to inform that item is deleted successfully
-            return 'Item is deleted'
+            # Redirect to home category page and
+            # flash message because we need to inform
+            # that item is deleted successfully
+            return redirect(url_for('getCategoryPage',
+                        category_slug=data['slug']))
         else:
             message = data['message']
             code = data['code']
