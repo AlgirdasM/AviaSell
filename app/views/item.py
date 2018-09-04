@@ -94,5 +94,12 @@ def deleteItem(item_id):
             message = data['message']
             code = data['code']
             return render_template('error.html', message=message), code
-    else:        
-        return 'do you really want to delete this item'
+    else:
+        data = ItemController.getItemByID(item_id)
+        
+        if not data:
+            message = 'Item not found'
+            code = 404
+            return render_template('error.html', message=message), code
+
+        return render_template('delete.html', item=data)

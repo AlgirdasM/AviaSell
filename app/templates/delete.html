@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	Delete item
+{% endblock %}
+
+
+{% block content %}
+<div class="deleteContainer">
+	<div class="message">
+		<h1>Do you really want to delete - {{item.title}}?</h1>
+		<div class="buttonContainer">
+			<div class="buttons">
+				<form class="buttons" action="#" method = 'post'>
+					<button class="button delete">
+						Yes
+					</button>
+				</form>
+
+				<button class="button edit" onclick="location.href='javascript:history.back()';">
+					No, go back
+				</button>
+		</div>
+	</div>
+</div>
+{% endblock %}

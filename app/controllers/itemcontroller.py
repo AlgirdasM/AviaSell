@@ -40,6 +40,16 @@ class ItemController():
         except:
             return False
 
+    def getItemByID(item_id):
+        try:
+            # Get item data
+            item = ItemModel.getItem(item_id)
+
+            return item
+        except:
+            # If error return false
+            return False
+
     def getItem(item_id, item_name):
         try:
             # Create object to store data
