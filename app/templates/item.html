@@ -44,7 +44,7 @@
                                 </a>
                             </div>
                             <div class="button delete">
-                                <a href="delete">
+                                <a href="{{ url_for('deleteItem', item_id=item.id) }}">
                                     Delete
                                 </a>
                             </div>

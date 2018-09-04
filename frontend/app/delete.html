@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AviaSell</title>
+  <!-- Place favicon.ico in the root directory -->
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+
+<body>
+  <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  <header class="shadow">
+    <div class="logo">
+      <a href="/">AviaSell</a>
+    </div>
+    <div class="headerButtons">
+      <button class="button blue">
+        <a href="create.html">
+              <div class="sign">
+                <i class="fas fa-plus"></i>
+              </div>
+              <div class="text">
+                Create Item
+              </div>
+          </a>
+      </button>
+      <button class="button red">
+        <a href="login.html">
+              <div class="sign">
+                <i class="fas fa-sign-out-alt"></i>
+              </div>
+              <div class="text">
+                Logout
+              </div>
+          </a>
+      </button>
+    </div>
+  </header>
+  <main>
+
+
+    <div class="deleteContainer">
+      <div class="message">
+        <h1>Do you really want to delete - item.name?</h1>
+        <div class="buttonContainer">
+          <div class="buttons">
+            <button class="button delete" onclick="location.href='{{delete.id}}';">
+              Yes
+            </button>
+            <button class="button edit" onclick="location.href='javascript:history.back()';">
+              No, go back
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+    
+    </div>
+  </main>
+  <footer tabindex="0">
+    ©2018 AviaSell
+  </footer>
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
+  <!-- endbuild -->
+</body>
+
+</html>

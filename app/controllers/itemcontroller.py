@@ -91,3 +91,30 @@ class ItemController():
         result['slug'] = categorySlug
 
         return result
+
+    def deleteItem(item_id):
+        response = {}
+        item = ItemModel.getItem(item_id)
+        user_id = login_session['user_id']
+        
+        # If item not found return 404
+        if not item:
+            response['message'] = 'Item not found'
+            response['code'] = 404
+            return response
+
+        # check if user is authorized to delete this item
+        if item.user_id != user_id:
+            response['message'] = 'You are not authorized to delete this item.'
+            response['code'] = 403
+            return response
+
+        #delete item and return response code 200
+        delete_item = ItemModel.deleteItem(item_id)
+        if delete_item:
+            response['code'] = 200
+            return response
+        else:
+            response['message'] = 'Something went wrong... Item is not deleted.'
+            response['code'] = 500
+            return response

@@ -25,10 +25,13 @@ class ItemModel():
         return result
 
     def getItem(item_id):
-        result = session.query(CategoryItem)\
-                        .filter_by(id=item_id)\
-                        .one()
-        return result
+        try:
+            result = session.query(CategoryItem)\
+                            .filter_by(id=item_id)\
+                            .one()
+            return result
+        except:
+            return False
 
     def getLatestItem(category_id):
         result = session.query(CategoryItem)\
@@ -72,3 +75,12 @@ class ItemModel():
                         .filter_by(category_id=category_id)\
                         .count()
         return result
+
+    def deleteItem(item_id):
+        try:
+            item = session.query(CategoryItem).filter_by(id = item_id).one()
+            session.delete(item)
+            session.commit()
+            return True
+        except:
+            return False

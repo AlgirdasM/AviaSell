@@ -82,9 +82,17 @@ def updateItem(category_name, item_id):
 
 
 # Delete item
-@webapp.route('/category/<string:category_name>/<int:item_id>/delete', methods=['GET', 'POST'])
-def deleteItem(category_name, item_id):
+@webapp.route('/item/delete/<int:item_id>', methods=['GET', 'POST'])
+def deleteItem(item_id):
     if request.method == 'POST':
-        return 'Deleting item id: ' + str(item_id)
-    else:
-        return 'Edit: item with id: ' + str(item_id) + ' in category ' + category_name
+        data = ItemController.deleteItem(item_id)
+
+        if data['code'] == 200:
+            # flash message because we need to inform that item is deleted successfully
+            return 'Item is deleted'
+        else:
+            message = data['message']
+            code = data['code']
+            return render_template('error.html', message=message), code
+    else:        
+        return 'do you really want to delete this item'

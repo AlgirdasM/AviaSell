@@ -512,6 +512,28 @@ legend {
 }
 
 
+.deleteContainer {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 100%;
+  .message {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+
+    h1 {
+      font-size: 18px;
+    }
+
+    .buttonContainer{
+      padding: 20px 0 0;
+      width: 150px;
+    }
+  }
+}
+
+
 footer {
   align-self: end;
   border-top: 1px solid $color-grey;
