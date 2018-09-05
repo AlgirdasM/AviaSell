@@ -4,7 +4,7 @@ from flask import render_template
 from app import webapp
 from app.controllers import *
 
-# Read category page
+# Read category page, if no page, default is 1
 @webapp.route('/category/<string:category_slug>/', defaults={'page': 1})
 @webapp.route('/category/<string:category_slug>/<int:page>')
 def getCategoryPage(category_slug, page):
