@@ -418,6 +418,24 @@ nav {
   text-align: center;
 }
 
+.flash {
+  margin: 20px 0 0;
+  border: 1px solid $color-green;
+  padding: 10px;
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+.innerFlash {
+  margin: 10px 0 0!important;
+  border: 1px solid $color-green;
+  padding: 10px;
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+}
+
 // Item page style
 .itemMainInfo {
   display: grid;
@@ -634,5 +652,11 @@ footer {
   .container {
     width: 1200px;
     margin: 0 auto;
+  }
+  .flash {
+    margin: 20px 0 0;
+  }
+  .logged {
+    margin: 20px 0 0;
   }
 }

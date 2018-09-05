@@ -67,4 +67,5 @@ def fbconnect():
     code = request.data
     # Login using google login
     data = AuthController.loginFacebook(code, reqstate)
+    flash('You have successfully logged in!')
     return data

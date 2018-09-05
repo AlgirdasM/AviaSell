@@ -12,8 +12,10 @@
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         {% for message in messages %}
-            <div class="logged">
-                {{ message }}
+            <div class="container">
+                <div class="flash">
+                    {{ message }}
+                </div>
             </div>
         {% endfor %}
       {% endif %}
@@ -50,7 +52,7 @@
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         {% for message in messages %}
-            <div class="logged">
+            <div class="flash">
                 {{ message }} Welcome {{session.username}}!
             </div>
         {% endfor %}

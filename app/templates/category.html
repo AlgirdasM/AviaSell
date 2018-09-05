@@ -29,7 +29,7 @@
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         {% for message in messages %}
-            <div class="logged">
+            <div class="innerFlash">
                 {{ message }}
             </div>
         {% endfor %}
@@ -70,7 +70,7 @@
                 <div class="buttons">
                     {% if session['user_id'] == item.user_id %}
                             <div class="button edit">
-                                <a href="edit">
+                                <a href="{{ url_for('updateItem', item_id=item.id) }}">
                                     Edit
                                 </a>
                             </div>
