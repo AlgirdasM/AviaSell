@@ -123,13 +123,6 @@ class ItemController():
             response['code'] = 404
             return response
 
-        # Check if user is authorized to delete this item
-        # if not return 403 with message
-        if item.user_id != user_id:
-            response['message'] = 'You are not authorized to update this item.'
-            response['code'] = 403
-            return response
-
         # Get request data
         if data.get('title'):
             item.title = data['title']
@@ -159,7 +152,7 @@ class ItemController():
             return response
         else:
             response['message'] = 'Something went wrong... Item is not updated.'
-            response['code'] = 500
+            response['code'] = 304
             return response
 
     def deleteItem(item_id):

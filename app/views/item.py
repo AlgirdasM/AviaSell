@@ -62,8 +62,15 @@ def updateItem(item_id):
     # Validate if user loged, if not redirect to login page
     logged = AuthController.validateLogin()
     if not logged:
-        return redirect(url_for('readItem'))
+        return redirect(url_for('login'))
     
+    # Validate item, if it yours continue, if not 403 error
+    isThisYourItem = AuthController.validateItem(item_id)
+    if isThisYourItem['code'] != 200:
+            message = isThisYourItem['message']
+            code = isThisYourItem['code']
+            return render_template('error.html', message=message), code
+
     if request.method == 'POST':
         data = ItemController.updateItem(item_id, request.form, request.files)
         if data['code'] == 200:
@@ -74,7 +81,7 @@ def updateItem(item_id):
         else:
             message = data['message']
             code = data['code']
-            return render_template('error.html', message=message), 304
+            return render_template('error.html', message=message), code
     else:
         data = ItemController.getItemByID(item_id)
         categories = CategoryController.getAllCategories()
@@ -88,6 +95,13 @@ def deleteItem(item_id):
     logged = AuthController.validateLogin()
     if not logged:
         return redirect(url_for('readItem'))
+
+    # Validate item, if it yours continue, if not 403 error
+    isThisYourItem = AuthController.validateItem(item_id)
+    if isThisYourItem['code'] != 200:
+            message = isThisYourItem['message']
+            code = isThisYourItem['code']
+            return render_template('error.html', message=message), code
 
     if request.method == 'POST':
         data = ItemController.deleteItem(item_id)

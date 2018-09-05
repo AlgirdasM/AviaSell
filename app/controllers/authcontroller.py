@@ -35,6 +35,25 @@ class AuthController():
         else:
             return False
 
+    def validateItem(item_id):
+        # Validates item - are you the owner of the item?
+        response = {}
+        # get item user id
+        item = ItemModel.getItem(item_id)
+        print(item)
+        if not item:
+            response['message'] = 'Item is not found.'
+            response['code'] = 404
+            return response           
+
+        if login_session['user_id'] == item.user_id:
+            response['code'] = 200
+            return response
+        else:
+            response['message'] = 'You are not authorized to update this item.'
+            response['code'] = 403
+            return response
+
     def loginGoogle(code, reqstate):
         # If state is not valid return error
         if not AuthController.validateState(reqstate):
