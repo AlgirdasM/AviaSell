@@ -12,10 +12,12 @@ def getCategoryPage(category_slug, page):
     login_session = AuthController.getSessionData()
     # Get items per page
     data = ItemController.getPageItems(category_slug, page)
-    # If there is no data return 404
-    if not data:
-      message = '404 - Category Not Found'
-      return render_template('error.html', message=message), 404
+    # Handle error if code is not 200
+    if data['code'] != 200:
+      message = data['message']
+      code = data['code']
+
+      return render_template('error.html', message=message), code
 
     # We got data, display it
     return render_template('category.html',

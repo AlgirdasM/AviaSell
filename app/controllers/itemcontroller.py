@@ -9,42 +9,44 @@ from app.controllers.uploadcontroller import UploadController
 class ItemController():
     # Get items for given category and page
     def getPageItems(category_slug, page):
+        # Create object to store data
+        response = {}        
         try:
             # How many items to display in one page?
             limitPerPage = int(webapp.config['ITEMS_PER_PAGE'])
 
-            # Create object to store data
-            result = {}
-
             # Get category information using slug
             category = CategoryModel.getCategoryBySlug(category_slug)
-            result['category_name'] = category.name
+            response['category_name'] = category.name
 
             # Get total items
             totalItems = ItemModel.itemsInCategoryCount(category.id)
-            result['totalItems'] = totalItems
+            response['totalItems'] = totalItems
 
             # Count how many there are pages
             pageCount = math.ceil(totalItems / limitPerPage)
-            result['pageCount'] = pageCount
+            response['pageCount'] = pageCount
 
             # Filter by category ID and get items from database
-            result['items'] = []
+            response['items'] = []
             items = ItemModel.getItemPage(category.id, page, limitPerPage)
             for item in items:
-                result['items'].append(
+                response['items'].append(
                     (item, UserModel.getUserEmail(item.user_id)))
-
-            return result
+            
+            # Response code if ok
+            response['code'] = 200
+            return response
         # if we got exception, return false
         except:
-            return False
+            response['message'] = 'Category is not found.'           
+            response['code'] = 404
+            return response
 
     def getItemByID(item_id):
         try:
             # Get item data by id
             item = ItemModel.getItem(item_id)
-
             return item
         except:
             # If error return false
