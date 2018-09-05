@@ -9,7 +9,7 @@ This is a full stack app to sell aviation gear online.
 3. Clone this repository to catalog folder
 4. cd catalog
 5. Populate fake database by running `python3 create_fake_db.py`
-6. Run `python3 run.py`
+6. Run `python3 application.py`
 7. Open browser and type http://localhost:8000/
 
 ## Database
