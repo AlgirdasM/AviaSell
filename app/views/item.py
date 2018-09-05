@@ -53,7 +53,9 @@ def createItem():
     else:
         # Get all categories
         data = CategoryController.getAllCategories()
-        return render_template('create.html', categories=data)
+        # Get max file size
+        max_file_size = UploadController.maxFileSize()
+        return render_template('create.html', categories=data, filesize=max_file_size)
 
 
 # Update item
@@ -85,7 +87,9 @@ def updateItem(item_id):
     else:
         data = ItemController.getItemByID(item_id)
         categories = CategoryController.getAllCategories()
-        return render_template('update.html', item=data, categories=categories)
+        # Get max file size
+        max_file_size = UploadController.maxFileSize()
+        return render_template('update.html', item=data, categories=categories, filesize=max_file_size)
 
 
 # Delete item

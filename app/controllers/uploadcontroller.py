@@ -20,6 +20,13 @@ class UploadController():
                filename.rsplit('.', 1)[1].lower(
                ) in webapp.config['ALLOWED_EXTENSIONS']
 
+    def maxFileSize():
+        # Get maximum allowed file size
+        fileSize = webapp.config['MAX_CONTENT_LENGTH']
+        # Convert to MB
+        inMB = fileSize / 1024 / 1024
+        return int(inMB)
+
     # Upload file to upload folder
     def uploadFile(data, user_id):
         if 'itemPicture' in data:
