@@ -17,7 +17,7 @@ Populate fake database - `python3 create_fake_db.py`
 In production mode, populate only categories - `python3 create_categories.py`, content will be created by users.
 
 
-## Frontend
+## Frontend(optional, may be used for development)
 Frontend created using [Yeoman](http://yeoman.io/) [Web app generator generator](https://github.com/yeoman/generator-webapp).
 
 To install dependencies run:
@@ -29,6 +29,7 @@ To serve development server:
 * Run `gulp serve`
 
 To generate production version for Flask:
+* Run `gulp build`
 * Run `gulp flaskdist`
 Please note flaskdist only copies images, css and js files.
 You need to manually update html files.
