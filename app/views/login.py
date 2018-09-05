@@ -41,3 +41,15 @@ def logout():
         message = data['message']
         code = data['code']
         return render_template('error.html', message=message), code
+
+
+
+@webapp.route('/fbconnect', methods=['POST'])
+def fbconnect():
+    # Get state
+    reqstate = request.args.get('state')
+    # Obtain authorization code
+    code = request.data
+    # Login using google login
+    data = AuthController.loginFacebook(code, reqstate)
+    return data

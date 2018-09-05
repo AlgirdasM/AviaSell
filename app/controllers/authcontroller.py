@@ -8,9 +8,6 @@ from flask import session as login_session
 from flask import make_response
 from app import webapp
 
-with open('app/config/gclient_secret.json') as f:
-    CLIENT_ID = json.load(f)['web']['client_id']
-
 class AuthController():
     def getSessionData():
         # Return session data
@@ -40,7 +37,7 @@ class AuthController():
         response = {}
         # get item user id
         item = ItemModel.getItem(item_id)
-        print(item)
+
         if not item:
             response['message'] = 'Item is not found.'
             response['code'] = 404
@@ -95,6 +92,8 @@ class AuthController():
             response.headers['Content-Type'] = 'application/json'
             return response
 
+        CLIENT_ID = json.loads(open(webapp.config['GOOGLE_JSON'], 'r').read())['web']['client_id']
+
         # Verify that the access token is valid for this app.
         if result['issued_to'] != CLIENT_ID:
             response = make_response(
@@ -128,6 +127,75 @@ class AuthController():
 
         # ADD PROVIDER TO LOGIN SESSION
         login_session['provider'] = 'google'
+
+        # See if user exists, if it doesn't make a new one
+        user_id = UserModel.getUserID(data["email"])
+        if not user_id:
+            user_id = UserModel.createUser(login_session)
+        login_session['user_id'] = user_id
+
+        output = ''
+        output += '<h1>Login Successful!</h1>'
+        output += '<img class="avatar" src="'
+        output += login_session['picture']
+        output += '" >'
+        output += '<p>Welcome, '
+        output += login_session['username']
+        output += '</p>'
+
+        return output
+
+
+    def loginFacebook(code, reqstate):
+        # If state is not valid return error
+        if not AuthController.validateState(reqstate):
+            response = make_response(json.dumps('Invalid state parameter.'), 401)
+            response.headers['Content-Type'] = 'application/json'
+            return response
+
+        access_token = code.decode('utf-8')
+
+        app_id = json.loads(open(webapp.config['FACEBOOK_JSON'], 'r').read())[
+            'web']['app_id']
+        app_secret = json.loads(
+            open(webapp.config['FACEBOOK_JSON'], 'r').read())['web']['app_secret']
+        
+        url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
+            app_id, app_secret, access_token)
+ 
+        h = httplib2.Http()
+        
+        result = h.request(url, 'GET')[1]
+        
+        # Use token to get user info from API
+        # userinfo_url = "https://graph.facebook.com/v3.1/me"
+
+        token = result.decode('utf-8').split(',')[0].split(':')[1].replace('"', '')
+ 
+        
+        url = 'https://graph.facebook.com/v3.1/me?access_token=%s&fields=name,id,email' % token
+        h = httplib2.Http()
+        result = h.request(url, 'GET')[1]
+
+
+        data = json.loads(result.decode('utf-8'))
+        login_session['provider'] = 'facebook'
+        login_session['username'] = data["name"]
+        login_session['email'] = data["email"]
+        login_session['facebook_id'] = data["id"]
+
+        # The token must be stored in the login_session in order to properly logout
+        login_session['access_token'] = token
+
+        # Get user picture
+        url = 'https://graph.facebook.com/v3.1/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
+        h = httplib2.Http()
+        result = h.request(url, 'GET')[1]
+
+        picture = json.loads(result.decode('utf-8'))
+
+
+        login_session['picture'] = picture["data"]["url"]
 
         # See if user exists, if it doesn't make a new one
         user_id = UserModel.getUserID(data["email"])
