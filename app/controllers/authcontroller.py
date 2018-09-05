@@ -12,8 +12,8 @@ with open('app/config/gclient_secret.json') as f:
     CLIENT_ID = json.load(f)['web']['client_id']
 
 class AuthController():
-    # Return session data
     def getSessionData():
+        # Return session data
         return login_session
 
     def setState():

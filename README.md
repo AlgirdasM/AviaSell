@@ -2,9 +2,20 @@
 
 This is a full stack app to sell aviation gear online.
 
+## Setup instructions
+1. Clone and setup [fullstack-nanodegree-vm](https://github.com/udacity/fullstack-nanodegree-vm)
+1. ssh to the virtual machine
+2. cd /vagrant
+3. Clone this repository to catalog folder
+4. cd catalog
+5. Populate fake database by running `python3 create_fake_db.py`
+6. Run `python3 run.py`
+7. Open browser and type http://localhost:8000/
+
 ## Database
 Populate fake database - `python3 create_fake_db.py`
-Production mode, populate categories - `python3 create_categories.py`
+In production mode, populate only categories - `python3 create_categories.py`, content will be created by users.
+
 
 ## Frontend
 Frontend created using [Yeoman](http://yeoman.io/) [Web app generator generator](https://github.com/yeoman/generator-webapp).

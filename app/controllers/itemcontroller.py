@@ -42,7 +42,7 @@ class ItemController():
 
     def getItemByID(item_id):
         try:
-            # Get item data
+            # Get item data by id
             item = ItemModel.getItem(item_id)
 
             return item
@@ -59,7 +59,7 @@ class ItemController():
             item = ItemModel.getItem(item_id)
             result['item'] = item
 
-            # Validate item name, if not match return False
+            # Validate item name, if it doesnt match return False
             if item.title != item_name:
                 return False
 
@@ -73,6 +73,7 @@ class ItemController():
             return False
 
     def createItem(data, file):
+        # Create object to store data
         result = {}
 
         # Validate data, it must not be empty
@@ -92,35 +93,44 @@ class ItemController():
 
         # Get logged in user id
         user_id = str(login_session['user_id'])
+
+        # Upload picture to our server and return unique filename
         picture = UploadController.uploadFile(file, user_id)
 
+        # Create item and return it
         item = ItemModel.createItem(data, picture, user_id)
         result['item'] = item
-        
+
+        # Get category slug
         categorySlug = CategoryModel.getCategorySlug(item.category_id)
         result['slug'] = categorySlug
 
         return result
 
     def updateItem(item_id, data, file):
-        item = ItemModel.getItem(item_id)
-        old_item = item
-        user_id = str(login_session['user_id'])
-
+        # Create object to store data
         response = {}
 
-        # If item not found return 404
+        # Get item data
+        item = ItemModel.getItem(item_id)
+
+        # Get user id
+        user_id = str(login_session['user_id'])
+
+        # If item not found return 404 with message
         if not item:
             response['message'] = 'Item not found'
             response['code'] = 404
             return response
 
-        #check if user is authorized to delete this item
-        # if item.user_id != user_id:
-        #     response['message'] = 'You are not authorized to update this item.'
-        #     response['code'] = 403
-        #     return response
+        # Check if user is authorized to delete this item
+        # if not return 403 with message
+        if item.user_id != user_id:
+            response['message'] = 'You are not authorized to update this item.'
+            response['code'] = 403
+            return response
 
+        # Get request data
         if data.get('title'):
             item.title = data['title']
         if data.get('description'):
@@ -135,8 +145,10 @@ class ItemController():
             picture = UploadController.uploadFile(file, user_id)
             item.picture = picture
 
+        # Update item and return it
         itemUpdate = ItemModel.updateItem(item)
 
+        # Get category slug
         slug = CategoryModel.getCategorySlug(itemUpdate.category_id)
 
         if itemUpdate:
@@ -146,13 +158,18 @@ class ItemController():
             response['code'] = 200
             return response
         else:
-            response['message'] = 'Something went wrong... Item is not deleted.'
+            response['message'] = 'Something went wrong... Item is not updated.'
             response['code'] = 500
             return response
 
     def deleteItem(item_id):
+        # Create object to store data
         response = {}
+
+        # Get item data
         item = ItemModel.getItem(item_id)
+
+        # Get user id
         user_id = login_session['user_id']
         
         # If item not found return 404

@@ -25,6 +25,7 @@ class ItemModel():
         return result
 
     def getItem(item_id):
+        # Get item by id, if no item return false
         try:
             result = session.query(CategoryItem)\
                             .filter_by(id=item_id)\
@@ -34,6 +35,7 @@ class ItemModel():
             return False
 
     def getLatestItem(category_id):
+        # Get latest item for a category by category id
         result = session.query(CategoryItem)\
                         .filter_by(category_id=category_id)\
                         .order_by(CategoryItem.created_date.desc())\
@@ -41,6 +43,7 @@ class ItemModel():
         return result
 
     def createItem(item, picture, user_id):
+        # Create and add item to db
         addItem = CategoryItem(title=item['title'],
                                description=item['description'],
                                location=item['location'],
@@ -56,6 +59,8 @@ class ItemModel():
         return addItem
 
     def getItemPage(category_id, offset, limit):
+        # Get items for given page(offset)
+        # also limit results
         if offset == 1:
             offset = 0
         else:
@@ -71,12 +76,14 @@ class ItemModel():
         return result
 
     def itemsInCategoryCount(category_id):
+        # Count how many items are in the category
         result = session.query(CategoryItem)\
                         .filter_by(category_id=category_id)\
                         .count()
         return result
 
     def updateItem(item):
+        # Update item
         try:
             session.add(item)
             session.commit()
@@ -86,6 +93,7 @@ class ItemModel():
             return False
 
     def deleteItem(item_id):
+        # Delete item
         try:
             item = session.query(CategoryItem).filter_by(id = item_id).one()
             session.delete(item)
