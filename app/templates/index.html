@@ -5,27 +5,59 @@
 {% endblock %}
 
 {% block content %}
-{% if 'username' not in session %}
-<div id="banner">
-    <div class="bannerText">
-        <h1 class="slogan" tabindex="0">
-            Buy and sell aviation gear
-        </h1>
-        <a href="#catList">
-            <div class="arrow">
-                &gt;
-            </div>
-        </a>
-    </div>
-</div>
-{% endif %}
 
-<div class="container">
-    {% if 'username' in session %}
-        <div class="logged">
-            Welcome {{session.username}}!
+<!-- if user is not logged -->
+{% if 'username' not in session %}
+    <!-- if user have message, show message -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="logged">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <!-- if don't have message, show banner -->
+    {% if not get_flashed_messages() %}
+        <div id="banner">
+            <div class="bannerText">
+                <h1 class="slogan" tabindex="0">
+                    Buy and sell aviation gear
+                </h1>
+                <a href="#catList">
+                    <div class="arrow">
+                        &gt;
+                    </div>
+                </a>
+            </div>
         </div>
     {% endif %}
+{% endif %}
+
+
+<div class="container">
+<!-- if user is logged show standart message -->
+{% if 'username' in session %}
+    {% if not get_flashed_messages() %}
+        {% if 'username' in session %}
+            <div class="logged">
+                Welcome {{session.username}}!
+            </div>
+        {% endif %}
+    {% endif %}
+<!-- if user is logged and have message show it instead -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="logged">
+                {{ message }} Welcome {{session.username}}!
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+{% endif %}
+
     <ul id="catList" class="categoryList">
         {% for category, item in categories %}
         <li class="categoryItem shadow">

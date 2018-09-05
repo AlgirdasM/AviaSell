@@ -2,7 +2,7 @@
 
 from app import webapp
 from flask import render_template
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, flash
 from app.controllers import *
 
 
@@ -23,6 +23,7 @@ def gconnect():
     code = request.data
     # Login using google login
     data = AuthController.loginGoogle(code, reqstate)
+    flash('You have successfully logged in!')
     return data
 
 
@@ -39,6 +40,7 @@ def logout():
         data = AuthController.googleLogout()
         if data['code'] == 200:
             # On success redirect to home page
+            flash('You have successfully logged out!')
             return redirect(url_for('mainIndex'))
         else:
             # On error display error page
@@ -49,6 +51,7 @@ def logout():
         data = AuthController.facebookLogout()
         if data['code'] == 200:
             # On success redirect to home page
+            flash('You have successfully logged out!')
             return redirect(url_for('mainIndex'))
         else:
             # On error display error page

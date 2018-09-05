@@ -16,6 +16,16 @@
         </ul>
     </nav>
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="logged">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
     <div class="itemMainInfo">
         {% if item.picture %}
             <img src="{{ url_for('uploaded_file', filename = item.picture) }}" alt="{{ item.title }}">

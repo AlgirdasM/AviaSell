@@ -2,7 +2,7 @@
 
 from app import webapp
 from app.controllers import *
-from flask import render_template, request, url_for, redirect
+from flask import render_template, request, url_for, redirect, flash
 
 
 # Read item
@@ -76,6 +76,7 @@ def updateItem(item_id):
     if request.method == 'POST':
         data = ItemController.updateItem(item_id, request.form, request.files)
         if data['code'] == 200:
+            flash('Item has been updated.')
             return redirect(url_for('readItem',
                                     category_slug=data['slug'],
                                     item_name=data['item'].title,
@@ -114,6 +115,7 @@ def deleteItem(item_id):
             # Redirect to home category page and
             # flash message because we need to inform
             # that item is deleted successfully
+            flash('Item has been deleted.')
             return redirect(url_for('getCategoryPage',
                         category_slug=data['slug']))
         else:

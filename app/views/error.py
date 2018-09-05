@@ -7,7 +7,7 @@ from app import webapp
 @webapp.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html', message=e), 404
-    
+
 # Display error if file size is too big
 @webapp.errorhandler(413)
 def file_to_large(e):

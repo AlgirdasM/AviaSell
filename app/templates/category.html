@@ -26,6 +26,16 @@
         </ul>
     </nav>
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="logged">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
     <ul class="itemsList">
 
         {% for item, email in items %}
