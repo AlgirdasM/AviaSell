@@ -32,6 +32,9 @@ class AuthController():
         else:
             return False
 
+    def getLoginProvider():
+        return login_session['provider']
+
     def validateItem(item_id):
         # Validates item - are you the owner of the item?
         response = {}
@@ -214,12 +217,12 @@ class AuthController():
 
         return output
 
-    def logout():
+    def googleLogout():
         response = {}
         # Only disconnect a connected user.
         access_token = login_session.get('access_token')
        
-       # Clear login session
+        # Clear login session
         login_session.clear()
 
         if access_token is None:
@@ -236,6 +239,33 @@ class AuthController():
             response['code'] = int(result['status'])
             # Return success
             return response
+        else:
+            response['message'] = 'Failed to revoke token for given user.'
+            response['code'] = 400
+            return response
+
+    def facebookLogout():
+        response = {}
+        facebook_id = login_session['facebook_id']
+        # The access token must me included to successfully logout
+        access_token = login_session['access_token']
+        
+        if access_token is None:
+            response['message'] = 'Current user not connected.'
+            response['code'] = 401
+
+            return response
+        
+        url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id,access_token)
+        h = httplib2.Http()
+        result = json.loads( h.request(url, 'DELETE')[1].decode('utf-8') )
+
+        login_session.clear()
+        # Check if successfully logged out
+        if result.get('success') and result['success']:
+            response['code'] = 200
+            return response
+
         else:
             response['message'] = 'Failed to revoke token for given user.'
             response['code'] = 400

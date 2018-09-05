@@ -28,21 +28,33 @@ def gconnect():
 
 @webapp.route('/logout')
 def logout():
+    # If not logged go to login page
     logged = AuthController.validateLogin()
     if not logged:
         return redirect(url_for('login'))
-    
-    data = AuthController.logout()
-    if data['code'] == 200:
-        # On success redirect to home page
-        return redirect(url_for('mainIndex'))
-    else:
-        # On error display error page
-        message = data['message']
-        code = data['code']
-        return render_template('error.html', message=message), code
 
+    provider = AuthController.getLoginProvider()
 
+    if provider == 'google':
+        data = AuthController.googleLogout()
+        if data['code'] == 200:
+            # On success redirect to home page
+            return redirect(url_for('mainIndex'))
+        else:
+            # On error display error page
+            message = data['message']
+            code = data['code']
+            return render_template('error.html', message=message), code
+    elif provider == 'facebook':
+        data = AuthController.facebookLogout()
+        if data['code'] == 200:
+            # On success redirect to home page
+            return redirect(url_for('mainIndex'))
+        else:
+            # On error display error page
+            message = data['message']
+            code = data['code']
+            return render_template('error.html', message=message), code
 
 @webapp.route('/fbconnect', methods=['POST'])
 def fbconnect():

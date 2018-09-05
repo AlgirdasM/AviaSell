@@ -39,7 +39,7 @@
                 if (authResult['code']) {
                     // Hide the sign-in button now that the user is authorized
                     $('#glogin').attr('style', 'display: none');
-                    $('#fblogin').attr('style', 'display: none');
+                    $('#fb-root').attr('style', 'display: none');
                     // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
                     $.ajax({
                         type: 'POST',
@@ -102,14 +102,8 @@
           // Here we run a very simple test of the Graph API after login is
           // successful.  See statusChangeCallback() for when this call is made.
           function sendTokenToServer() {
-            console.log('loading sentoken')
-
             var access_token = FB.getAuthResponse()['accessToken'];
-
-            console.log(access_token)
-            console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function(response) {
-              console.log('Successful login for: ' + response.name);
              $.ajax({
               type: 'POST',
               url: '/fbconnect?state={{state}}',
@@ -119,6 +113,8 @@
               success: function(result) {
                 // Handle or verify the server response if necessary.
                 if (result) {
+                  $('#glogin').attr('style', 'display: none');
+                  $('#fb-root').attr('style', 'display: none');
                   $('#result').html(result)
                  setTimeout(function() {
                   window.location.href = "/";
