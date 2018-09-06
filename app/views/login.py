@@ -6,7 +6,6 @@ from flask import request, redirect, url_for, flash
 from app.controllers import *
 
 
-
 # Read login page
 @webapp.route('/login')
 def login():
@@ -58,6 +57,7 @@ def logout():
             message = data['message']
             code = data['code']
             return render_template('error.html', message=message), code
+
 
 @webapp.route('/fbconnect', methods=['POST'])
 def fbconnect():

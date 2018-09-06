@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 
-import random, string, httplib2, json, requests
+import random
+import string
+import httplib2
+import json
+import requests
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from app.models import *
 from flask import session as login_session
 from flask import make_response
 from app import webapp
+
 
 class AuthController():
     def getSessionData():
@@ -44,7 +49,7 @@ class AuthController():
         if not item:
             response['message'] = 'Item is not found.'
             response['code'] = 404
-            return response           
+            return response
 
         if login_session['user_id'] == item.user_id:
             response['code'] = 200
@@ -57,7 +62,8 @@ class AuthController():
     def loginGoogle(code, reqstate):
         # If state is not valid return error
         if not AuthController.validateState(reqstate):
-            response = make_response(json.dumps('Invalid state parameter.'), 401)
+            response = make_response(json.dumps(
+                'Invalid state parameter.'), 401)
             response.headers['Content-Type'] = 'application/json'
             return response
 
@@ -95,7 +101,8 @@ class AuthController():
             response.headers['Content-Type'] = 'application/json'
             return response
 
-        CLIENT_ID = json.loads(open(webapp.config['GOOGLE_JSON'], 'r').read())['web']['client_id']
+        CLIENT_ID = json.loads(open(webapp.config['GOOGLE_JSON'], 'r').read())[
+            'web']['client_id']
 
         # Verify that the access token is valid for this app.
         if result['issued_to'] != CLIENT_ID:
@@ -148,38 +155,43 @@ class AuthController():
 
         return output
 
-
     def loginFacebook(code, reqstate):
         # If state is not valid return error
         if not AuthController.validateState(reqstate):
-            response = make_response(json.dumps('Invalid state parameter.'), 401)
+            response = make_response(json.dumps(
+                'Invalid state parameter.'), 401)
             response.headers['Content-Type'] = 'application/json'
             return response
 
         access_token = code.decode('utf-8')
 
-        app_id = json.loads(open(webapp.config['FACEBOOK_JSON'], 'r').read())[
+        # Load app id
+        app_id = json.loads(open(webapp.config['FACEBOOK_JSON'], 'r')
+                            .read())[
             'web']['app_id']
+
+        # Load app secret
         app_secret = json.loads(
-            open(webapp.config['FACEBOOK_JSON'], 'r').read())['web']['app_secret']
-        
-        url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
+            open(webapp.config['FACEBOOK_JSON'], 'r')
+            .read())['web']['app_secret']
+
+        url = 'https://graph.facebook.com/oauth/access_token?'
+        url += 'grant_type=fb_exchange_token&'
+        url += 'client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
             app_id, app_secret, access_token)
- 
+
         h = httplib2.Http()
-        
+
         result = h.request(url, 'GET')[1]
-        
+
         # Use token to get user info from API
-        # userinfo_url = "https://graph.facebook.com/v3.1/me"
+        token = result.decode(
+            'utf-8').split(',')[0].split(':')[1].replace('"', '')
 
-        token = result.decode('utf-8').split(',')[0].split(':')[1].replace('"', '')
- 
-        
-        url = 'https://graph.facebook.com/v3.1/me?access_token=%s&fields=name,id,email' % token
+        url = 'https://graph.facebook.com/v3.1/me?'
+        url += 'access_token=%s&fields=name,id,email' % token
         h = httplib2.Http()
         result = h.request(url, 'GET')[1]
-
 
         data = json.loads(result.decode('utf-8'))
         login_session['provider'] = 'facebook'
@@ -187,16 +199,17 @@ class AuthController():
         login_session['email'] = data["email"]
         login_session['facebook_id'] = data["id"]
 
-        # The token must be stored in the login_session in order to properly logout
+        # The token must be stored in the login_session
+        # in order to properly logout
         login_session['access_token'] = token
 
         # Get user picture
-        url = 'https://graph.facebook.com/v3.1/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
+        url = 'https://graph.facebook.com/v3.1/me/picture?'
+        url += 'access_token=%s&redirect=0&height=200&width=200' % token
         h = httplib2.Http()
         result = h.request(url, 'GET')[1]
 
         picture = json.loads(result.decode('utf-8'))
-
 
         login_session['picture'] = picture["data"]["url"]
 
@@ -221,7 +234,7 @@ class AuthController():
         response = {}
         # Only disconnect a connected user.
         access_token = login_session.get('access_token')
-       
+
         # Clear login session
         login_session.clear()
 
@@ -230,11 +243,12 @@ class AuthController():
             response['code'] = 401
 
             return response
-        
-        url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+
+        url = 'https://accounts.google.com/o/oauth2/revoke?'
+        url += 'token=%s' % access_token
         h = httplib2.Http()
         result = h.request(url, 'GET')[0]
-        
+
         if result['status'] == '200':
             response['code'] = int(result['status'])
             # Return success
@@ -249,16 +263,17 @@ class AuthController():
         facebook_id = login_session['facebook_id']
         # The access token must me included to successfully logout
         access_token = login_session['access_token']
-        
+
         if access_token is None:
             response['message'] = 'Current user not connected.'
             response['code'] = 401
 
             return response
-        
-        url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (facebook_id,access_token)
+
+        url = 'https://graph.facebook.com/%s/permissions?access_token=%s' % (
+            facebook_id, access_token)
         h = httplib2.Http()
-        result = json.loads( h.request(url, 'DELETE')[1].decode('utf-8') )
+        result = json.loads(h.request(url, 'DELETE')[1].decode('utf-8'))
 
         login_session.clear()
         # Check if successfully logged out

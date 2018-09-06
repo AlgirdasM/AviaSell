@@ -6,11 +6,12 @@ from app import webapp
 from flask import session as login_session
 from app.controllers.uploadcontroller import UploadController
 
+
 class ItemController():
     # Get items for given category and page
     def getPageItems(category_slug, page):
         # Create object to store data
-        response = {}        
+        response = {}
         try:
             # How many items to display in one page?
             limitPerPage = int(webapp.config['ITEMS_PER_PAGE'])
@@ -19,7 +20,7 @@ class ItemController():
             category = CategoryModel.getCategoryBySlug(category_slug)
             response['category_name'] = category.name
             response['category_id'] = category.id
-            
+
             # Get total items
             totalItems = ItemModel.itemsInCategoryCount(category.id)
             response['totalItems'] = totalItems
@@ -34,13 +35,13 @@ class ItemController():
             for item in items:
                 response['items'].append(
                     (item, UserModel.getUserEmail(item.user_id)))
-            
+
             # Response code if ok
             response['code'] = 200
             return response
         # if we got exception, return false
         except:
-            response['message'] = 'Category is not found.'           
+            response['message'] = 'Category is not found.'
             response['code'] = 404
             return response
 
@@ -154,7 +155,8 @@ class ItemController():
             response['code'] = 200
             return response
         else:
-            response['message'] = 'Something went wrong... Item is not updated.'
+            response['message'] = 'Something went wrong... '
+            response['message'] += 'Item is not updated.'
             response['code'] = 304
             return response
 
@@ -167,7 +169,7 @@ class ItemController():
 
         # Get user id
         user_id = login_session['user_id']
-        
+
         # If item not found return 404
         if not item:
             response['message'] = 'Item not found'
@@ -180,7 +182,7 @@ class ItemController():
             response['code'] = 403
             return response
 
-        #delete item and return response code 200
+        # delete item and return response code 200
         delete_item = ItemModel.deleteItem(item_id)
         slug = CategoryModel.getCategorySlug(delete_item.category_id)
 
@@ -189,6 +191,7 @@ class ItemController():
             response['code'] = 200
             return response
         else:
-            response['message'] = 'Something went wrong... Item is not deleted.'
+            response['message'] = 'Something went wrong... '
+            response['message'] += 'Item is not deleted.'
             response['code'] = 500
             return response

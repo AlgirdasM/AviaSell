@@ -95,7 +95,7 @@ class ItemModel():
     def deleteItem(item_id):
         # Delete item
         try:
-            item = session.query(CategoryItem).filter_by(id = item_id).one()
+            item = session.query(CategoryItem).filter_by(id=item_id).one()
             session.delete(item)
             session.commit()
             return item

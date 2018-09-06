@@ -44,8 +44,8 @@ def apiGetCategoryPage(category_slug, page):
         message = 'Page not found'
         code = 404
         return jsonify(error=message, code=code), code
-	
-	# Create empty array to combine data
+
+        # Create empty array to combine data
     items = []
     for item, email in data['items']:
         json = {}

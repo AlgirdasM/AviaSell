@@ -10,11 +10,8 @@ from app.controllers import *
 def mainIndex():
     # Get categories with latest item
     categories = CategoryController.categoriesWithLatestItem()
+
     # Get session data
-
-    for category, item in categories:
-    	print(category.name)
-
     login_session = AuthController.getSessionData()
     return render_template('index.html',
                            categories=categories,

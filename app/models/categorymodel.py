@@ -16,16 +16,16 @@ session = DBSession()
 
 class CategoryModel():
     def getAll():
-    	# Get all categories
+        # Get all categories
         result = session.query(Category).all()
         return result
 
     def getCategoryBySlug(categorySlug):
-    	# Get category by slug
+        # Get category by slug
         result = session.query(Category).filter_by(slug=categorySlug).one()
         return result
 
     def getCategorySlug(category_id):
-    	# Get category by id
+        # Get category by id
         result = session.query(Category).filter_by(id=category_id).one()
         return result.slug

@@ -6,7 +6,8 @@ from flask import render_template, request, url_for, redirect, flash
 
 
 # Read item
-@webapp.route('/category/<string:category_slug>/<string:item_name>/<int:item_id>')
+@webapp.route('/category/<string:category_slug>/'
+              + '<string:item_name>/<int:item_id>')
 def readItem(category_slug, item_name, item_id):
     # Validate category slug
     validSlug = CategoryController.validateSlug(category_slug)
@@ -55,7 +56,9 @@ def createItem():
         data = CategoryController.getAllCategories()
         # Get max file size
         max_file_size = UploadController.maxFileSize()
-        return render_template('create.html', categories=data, filesize=max_file_size)
+        return render_template('create.html',
+                               categories=data,
+                               filesize=max_file_size)
 
 
 # Update item
@@ -65,13 +68,13 @@ def updateItem(item_id):
     logged = AuthController.validateLogin()
     if not logged:
         return redirect(url_for('login'))
-    
+
     # Validate item, if it yours continue, if not 403 error
     isThisYourItem = AuthController.validateItem(item_id)
     if isThisYourItem['code'] != 200:
-            message = isThisYourItem['message']
-            code = isThisYourItem['code']
-            return render_template('error.html', message=message), code
+        message = isThisYourItem['message']
+        code = isThisYourItem['code']
+        return render_template('error.html', message=message), code
 
     if request.method == 'POST':
         data = ItemController.updateItem(item_id, request.form, request.files)
@@ -90,7 +93,10 @@ def updateItem(item_id):
         categories = CategoryController.getAllCategories()
         # Get max file size
         max_file_size = UploadController.maxFileSize()
-        return render_template('update.html', item=data, categories=categories, filesize=max_file_size)
+        return render_template('update.html',
+                               item=data,
+                               categories=categories,
+                               filesize=max_file_size)
 
 
 # Delete item
@@ -104,9 +110,9 @@ def deleteItem(item_id):
     # Validate item, if it yours continue, if not 403 error
     isThisYourItem = AuthController.validateItem(item_id)
     if isThisYourItem['code'] != 200:
-            message = isThisYourItem['message']
-            code = isThisYourItem['code']
-            return render_template('error.html', message=message), code
+        message = isThisYourItem['message']
+        code = isThisYourItem['code']
+        return render_template('error.html', message=message), code
 
     if request.method == 'POST':
         data = ItemController.deleteItem(item_id)
@@ -117,7 +123,7 @@ def deleteItem(item_id):
             # that item is deleted successfully
             flash('Item has been deleted.')
             return redirect(url_for('getCategoryPage',
-                        category_slug=data['slug']))
+                                    category_slug=data['slug']))
         else:
             message = data['message']
             code = data['code']

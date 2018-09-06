@@ -3,6 +3,7 @@
 from app import webapp
 from flask import send_from_directory
 
+
 # Serve uploaded pictures
 @webapp.route('/uploads/<filename>')
 def uploaded_file(filename):
