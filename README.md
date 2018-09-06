@@ -11,8 +11,11 @@ AviaSell is a full stack app to sell aviation gear online. Written in Python3 us
 6. Run `python3 application.py`
 7. Open browser and type http://localhost:8000/
 
-## API endpoints
+## Config
+Config file is located at app/config/webapp.cfg
+Also in the same folder there are both JSON files for Google and Facebook oauth login
 
+## API endpoints
 **/api/v1/category**
 *Category list with latest item. Returns*
 * Category: id, name, picture, slug
