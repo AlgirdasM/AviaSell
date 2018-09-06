@@ -1,6 +1,5 @@
 # AviaSell app
-
-This is a full stack app to sell aviation gear online.
+AviaSell is a full stack app to sell aviation gear online. Written in Python3 using MVC design pattern.
 
 ## Setup instructions
 1. Clone and setup [fullstack-nanodegree-vm](https://github.com/udacity/fullstack-nanodegree-vm)
@@ -12,27 +11,26 @@ This is a full stack app to sell aviation gear online.
 6. Run `python3 application.py`
 7. Open browser and type http://localhost:8000/
 
-## Database
-Populate fake database - `python3 create_fake_db.py`
-In production mode, populate only categories - `python3 create_categories.py`, content will be created by users.
-
 ## API endpoints
 
-Category list with latest item
-/api/v1/category
-Category - id, name, picture, slug
-Latest Item - id, title, description, location, picture, price
+**/api/v1/category**
+*Category list with latest item. Returns*
+* Category: id, name, picture, slug
+* Latest Item: id, title, description, location, picture, price
 
-Category page with items(default page - 1)
-/api/v1/category/<string:category_slug>/
-/api/v1/category/<string:category_slug>/<int:page>'
-Category - name
-Items - id, title, description, location, picture, price
-Total items and pages
 
-Item data
-/api/v1/item/<int:item_id>
-Item - id, title, description, location, picture, price, category id and user id
+**/api/v1/category/<string:category_slug>/**
+**/api/v1/category/<string:category_slug>/<int:page>**
+*Category page with items(default page - 1). Returns*
+* Category: name
+* Items: id, title, description, location, picture, price
+* Total items
+* Total pages
+
+
+**/api/v1/item/<int:item_id>**
+*Item data. Returns*
+* Item: id, title, description, location, picture, price, category id and user id
 
 ## Frontend(optional, may be used for development)
 Frontend created using [Yeoman](http://yeoman.io/) [Web app generator generator](https://github.com/yeoman/generator-webapp).
@@ -48,16 +46,19 @@ To serve development server:
 To generate production version for Flask:
 * Run `gulp build`
 * Run `gulp flaskdist`
-Please note flaskdist only copies images, css and js files.
-You need to manually update html files.
 
+*Please note flaskdist only copies images, css and js files.
+You need to manually update html files.*
 
 ## Licenses and huge thank you
-* [Yeoman](https://yeoman.io/)
-* [Google Fonts](https://fonts.google.com/)
-* [Web app generator generator](https://github.com/yeoman/generator-webapp)
-* [Unsplash](https://unsplash.com/)
-* [Main Banner Photo by Jake Buonemani on Unsplash](https://unsplash.com/photos/J7jaiTITluE)
+* [Facebook login](https://developers.facebook.com/)
 * [Facebook & Google login buttons](https://codepen.io/davidelrizzo/pen/vEYvyv)
-* [Python](https://www.python.org/)
 * [Flask](http://flask.pocoo.org/)
+* [Google Fonts](https://fonts.google.com/)
+* [Google Login](https://console.developers.google.com/)
+* [Main Banner Photo by Jake Buonemani on Unsplash](https://unsplash.com/photos/J7jaiTITluE)
+* [Python](https://www.python.org/)
+* [Udacity](https://eu.udacity.com/)
+* [Unsplash](https://unsplash.com/)
+* [Web app generator generator](https://github.com/yeoman/generator-webapp)
+* [Yeoman](https://yeoman.io/)
