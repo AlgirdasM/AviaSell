@@ -17,6 +17,7 @@ Config file is located at app/config/webapp.cfg
 Also in the same folder there are both JSON files for Google and Facebook oauth login
 
 ## API endpoints
+**/api/v1
 **/api/v1/category**
 *Category list with latest item. Returns*
 * Category: id, name, picture, slug

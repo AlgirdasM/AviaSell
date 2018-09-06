@@ -4,8 +4,8 @@ from app import webapp
 from flask import jsonify
 from app.controllers import *
 
-
-@webapp.route("/api/v1/category")
+@webapp.route('/api/v1')
+@webapp.route('/api/v1/category')
 def apiCategoriesWithLatestItem():
     # Get all categories with latest item
     data = CategoryController.categoriesWithLatestItem()
@@ -64,7 +64,7 @@ def apiGetCategoryPage(category_slug, page):
                    category_name=data['category_name'])
 
 
-@webapp.route("/api/v1/item/<int:item_id>")
+@webapp.route('/api/v1/item/<int:item_id>')
 def apiGetItem(item_id):
     # Get item
     item = ItemController.getItemByID(item_id)
