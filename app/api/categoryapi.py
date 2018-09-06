@@ -39,11 +39,13 @@ def apiGetCategoryPage(category_slug, page):
         code = data['code']
         return jsonify(error=message, code=code), code
 
+    # If page is greater than page count, return error
     if page > data['pageCount']:
         message = 'Page not found'
         code = 404
         return jsonify(error=message, code=code), code
-
+	
+	# Create empty array to combine data
     items = []
     for item, email in data['items']:
         json = {}
