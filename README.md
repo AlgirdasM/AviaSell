@@ -1,5 +1,6 @@
 # AviaSell app
-AviaSell is a full stack app to sell aviation gear online. Written in Python3 using MVC design pattern.
+AviaSell is a full stack app to sell aviation gear online. Written in Python3 using MVC design pattern. Use Facebook or Google to log in to the app - it also creates a user in the database if a user doesn't exist in our system. After the login user can make CRUD operations on items. It performs local permission check and also verifies if the user is logged in before trying to edit or delete an item.
+
 
 ## Setup instructions
 1. Clone and setup [fullstack-nanodegree-vm](https://github.com/udacity/fullstack-nanodegree-vm)
