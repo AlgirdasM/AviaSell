@@ -7,3 +7,4 @@ webapp.config.from_pyfile('config/webapp.cfg', silent=False)
 
 import app.views
 import app.models
+import app.api

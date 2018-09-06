@@ -34,7 +34,6 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     picture = Column(String(250))
-    description = Column(String(250))
     slug = Column(String(30), unique=True)
 
     @property
@@ -71,6 +70,9 @@ class CategoryItem(Base):
             'description': self.description,
             'location': self.location,
             'price': self.price,
+            'picture': self.picture,
+            'category_id': self.category_id,
+            'user_id': self.user_id
         }
 
 

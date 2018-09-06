@@ -12,6 +12,7 @@ class CategoryController():
         # Append category and latest item to result array
         for category in categories:
             result.append((category, ItemModel.getLatestItem(category.id)))
+
         return result
 
     def getAllCategories():

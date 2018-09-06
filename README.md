@@ -16,6 +16,23 @@ This is a full stack app to sell aviation gear online.
 Populate fake database - `python3 create_fake_db.py`
 In production mode, populate only categories - `python3 create_categories.py`, content will be created by users.
 
+## API endpoints
+
+Category list with latest item
+/api/v1/category
+Category - id, name, picture, slug
+Latest Item - id, title, description, location, picture, price
+
+Category page with items(default page - 1)
+/api/v1/category/<string:category_slug>/
+/api/v1/category/<string:category_slug>/<int:page>'
+Category - name
+Items - id, title, description, location, picture, price
+Total items and pages
+
+Item data
+/api/v1/item/<int:item_id>
+Item - id, title, description, location, picture, price, category id and user id
 
 ## Frontend(optional, may be used for development)
 Frontend created using [Yeoman](http://yeoman.io/) [Web app generator generator](https://github.com/yeoman/generator-webapp).

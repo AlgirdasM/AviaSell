@@ -18,7 +18,8 @@ class ItemController():
             # Get category information using slug
             category = CategoryModel.getCategoryBySlug(category_slug)
             response['category_name'] = category.name
-
+            response['category_id'] = category.id
+            
             # Get total items
             totalItems = ItemModel.itemsInCategoryCount(category.id)
             response['totalItems'] = totalItems
