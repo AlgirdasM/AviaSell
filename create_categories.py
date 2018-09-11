@@ -3,9 +3,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.database_setup import Base, User, Category, CategoryItem
+from app import webapp
 
-# ?check_same_thread=False because there is an error, if you don't add it
-engine = create_engine('sqlite:///aviasell.db')
+engine = create_engine(webapp.config['DATABASE_ENGINE'])
 Base.metadata.bind = engine
 
 

@@ -5,6 +5,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from app import webapp
 
 Base = declarative_base()
 
@@ -77,7 +78,7 @@ class CategoryItem(Base):
         }
 
 
-engine = create_engine('sqlite:///aviasell.db')
+engine = create_engine(webapp.config['DATABASE_ENGINE'])
 
 
 Base.metadata.create_all(engine)
